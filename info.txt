@@ -1,0 +1,24 @@
+student model
+
+
+subject model
+
+
+
+submission model
+
+
+
+
+
+faculty model
+
+const mongoose = require("mongoose");
+
+
+
+
+institute model
+
+
+

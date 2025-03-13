@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students from <%= divisionName %></title>
+</head>
+<body>
+
+    <h1>Students from <%= divisionName %></h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Roll No.</th>
+                <th>Student Name</th>
+                <th>Email</th>
+                <th>WhatsApp Number</th>
+                <th>Hall Ticket Number</th>
+                <th>Subject</th>
+                <th>TA Submission</th>
+                <th>CIE Submission</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (students && students.length > 0) { %>
+                <% students.forEach(function(student) { %>
+                    <% if (student.subject && student.subject.length > 0) { %>
+                        <% student.subject.forEach(function(subj, index) { %>
+                            <tr>
+                                <% if (index === 0) { %>
+                                    <td rowspan="<%= student.subject.length %>"><%= student.rollNumber || "N/A" %></td>
+                                    <td rowspan="<%= student.subject.length %>"><%= student.fullname %></td>
+                                    <td rowspan="<%= student.subject.length %>"><%= student.email %></td>
+                                    <td rowspan="<%= student.subject.length %>"><%= student.whatsappNumber || "N/A" %></td>
+                                    <td rowspan="<%= student.subject.length %>"><%= student.htnum %></td>
+                                <% } %>
+                                <td><%= subj.subjectName.name || "N/A" %></td>
+                                <td><%= subj.submissionStatus?.TA || "Pending" %></td>
+                                <td><%= subj.submissionStatus?.CIE || "Pending" %></td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td><%= student.rollNumber || "N/A" %></td>
+                            <td><%= student.fullname %></td>
+                            <td><%= student.email %></td>
+                            <td><%= student.whatsappNumber || "N/A" %></td>
+                            <td><%= student.htnum %></td>
+                            <td colspan="3">No subjects assigned</td>
+                        </tr>
+                    <% } %>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="8">No students found in this division</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+</body>
+</html>

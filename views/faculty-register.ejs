@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Registration</title>
+</head>
+<body>
+    <h2>Faculty Registration</h2>
+
+    <form action="/faculty-register" method="POST">
+        <label for="name">Full Name (with Abbr: Dr./Prof.):</label>
+        <input type="text" id="name" name="fullname" required>
+        <br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br><br>
+
+        <label for="cnumber">WhatsApp Number:</label>
+        <input type="number" id="cnumber" name="cnumber" required>
+        <br><br>
+
+        <label for="institute">Select Institute:</label>
+        <select id="institute" name="institute" required>
+            <option value="">-- Select Institute --</option>
+            <% institutes.forEach(institute => { %>
+                <option value="<%= institute._id %>"><%= institute.iname %></option>
+            <% }); %>
+        </select>
+        <br><br>
+
+        <label for="department">Select Department:</label>
+        <select id="department" name="department" required>
+            <option value="">-- Select Department --</option>
+            <% departments.forEach(department => { %>
+                <option value="<%= department._id %>"><%= department.name %></option>
+            <% }); %>  
+        </select>
+        <br><br>   
+
+        <!-- <label for="secret">Enter Institute's Secret Key:</label>
+        <input type="text" name="secret" id="secret" required>
+        <br><br> -->
+        
+        <label for="password">Create Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br><br>
+        
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
