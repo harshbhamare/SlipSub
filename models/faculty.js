@@ -1,5 +1,3 @@
-
-
 const mongoose = require("mongoose");
 
 const FacultySchema = new mongoose.Schema({

@@ -7,7 +7,7 @@
 </head>
 <body>
   <h2>View Years for <%= department.name %></h2>
-  <form action="/departments/<%= department._id %>/years/add" method="post">
+  <!-- <form action="/departments/<%= department._id %>/years/add" method="post">
     <select name="year" id="">
       <option value="">Select Year</option>
       <option value="<%= `First Year - ${department.name}` %>"><%= `First Year - ${department.name}` %></option>
@@ -16,7 +16,7 @@
       <option value"<%= `Fourth Year - ${department.name}` %>"><%= `Fourth Year - ${department.name}` %></option>
     </select>
   <button type="submit">Add Year</button>
-  </form>
+  </form> -->
 
   <table border="1">
     <thead>
@@ -28,7 +28,7 @@
         <% years.forEach(function(year) { %>
             <tr>
                 <td><%= year.year %></td>
-                <td><a href="/years/<%=year.id%>/divisions">Manage</a></td>
+                <td><a href="/years/<%=year.id%>/divisions/view">Manage</a></td>
             </tr>
             
         <% }); %>

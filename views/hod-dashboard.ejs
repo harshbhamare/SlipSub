@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOD Dashboard</title>
+</head>
+<body>
+    <h2>HOD: <%= hod.head %></h2>
+    <h2>Department: <%= department.name %></h2>
+
+    <h2>Manage Years for <%= department.name %></h2>
+    <form action="/departments/<%= department._id %>/years/add" method="post">
+        <select name="year">
+            <option value="">Select Year</option>
+            <option value="<%= `First Year - ${department.name}` %>"><%= `First Year - ${department.name}` %></option>
+            <option value="<%= `Second Year - ${department.name}` %>"><%= `Second Year - ${department.name}` %></option>
+            <option value="<%= `Third Year - ${department.name}` %>"><%= `Third Year - ${department.name}` %></option>
+            <option value="<%= `Fourth Year - ${department.name}` %>"><%= `Fourth Year - ${department.name}` %></option>
+        </select>
+        <button type="submit">Add Year</button>
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Year Name</th>
+                <th>Manage Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% years.forEach(function(year) { %>
+                <tr>
+                    <td><%= year.year %></td>
+                    <td><a href="/years/<%= year._id %>/divisions">Manage</a></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

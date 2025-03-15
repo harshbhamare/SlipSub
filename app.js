@@ -14,11 +14,16 @@ const instituteRouter = require("./routes/institute-register")
 const instituteLoginRouter = require("./routes/institute-login")
 const facultyRouter = require("./routes/faculty-register")
 const facultyLoginRouter = require("./routes/faculty-login")
+const hodLoginRouter = require("./routes/hod-login")
 const instituteDashboardRouter = require("./routes/institute-dashboard")
+const hodDashboardRouter = require("./routes/hod-dashboard")
 
 const addYearRouter = require("./routes/add-year")
 const addDepartmentRouter = require("./routes/add-dept")
 const addDivisionRouter = require("./routes/add-division")
+
+const viewYearRouter = require("./routes/view-year")
+const viewDivisionRouter = require("./routes/view-division")
 
 const viewStudentRouter = require("./routes/view-students")
 
@@ -41,10 +46,15 @@ app.use("/institute-register", instituteRouter)
 app.use("/institute-login", instituteLoginRouter)
 app.use("/faculty-register", facultyRouter)
 app.use("/faculty-login", facultyLoginRouter)
+app.use("/hod-login", hodLoginRouter)
 app.use("/institute-dashboard", instituteDashboardRouter)
+app.use("/hod-dashboard", hodDashboardRouter)
 
-app.use("/", addYearRouter)
+app.use("/", viewYearRouter)
+app.use("/", viewDivisionRouter)
+
 app.use("/", addDivisionRouter)
+app.use("/", addYearRouter)
 app.use("/add-department", addDepartmentRouter)
 
 app.use("/", viewStudentRouter)
