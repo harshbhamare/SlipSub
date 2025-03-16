@@ -5,7 +5,7 @@ const SubjectSchema = new mongoose.Schema({
   code: { type: String, unique: true, required: true },
   department: { type: mongoose.Schema.Types.ObjectId, ref: "Department" },
   year: { type: mongoose.Schema.Types.ObjectId, ref: "year" },
-  faculty: [{ type: mongoose.Schema.Types.ObjectId, ref: "Faculty" }] // ✅ Change to an array
+  faculty: [{ type: mongoose.Schema.Types.ObjectId, ref: "Faculty" }]
 });
 
 module.exports = mongoose.model("Subject", SubjectSchema);

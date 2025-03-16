@@ -3,16 +3,13 @@ const router = express.Router()
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const cookieParser = require("cookie-parser")
-
 const instituteModel = require("../models/institute")
 
 router.get("/", async function(req, res){
     const institutes = await instituteModel.find(); 
-    // console.log(institutes)
     res.render("institute-register", { institutes });
 })
 
-// working properly
 router.post("/", async function (req, res) {
     let { iname, email, password, code } = req.body;
 
@@ -31,7 +28,6 @@ router.post("/", async function (req, res) {
         });
         let token = jwt.sign({email: email, instituteid: newInstitute._id}, "prem")
             res.cookie("token", token)
-            // res.redirect("/profile")
 
         res.send("Institute created successfully");
 

@@ -1,13 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const cookieParser = require("cookie-parser");
-
 const studentModel = require("../models/student");
 const divisionModel = require("../models/division");
 
 router.use(cookieParser());
-
-
 
 router.get("/years/:divisionId/student-list", async function (req, res) {
     try {
@@ -17,21 +14,19 @@ router.get("/years/:divisionId/student-list", async function (req, res) {
             return res.status(400).send("Division ID is required.");
         }
 
-        // ✅ Fetch students, populating division & subjects along with submission details
         const students = await studentModel
             .find({ division: divisionId })
             .populate({
                 path: "subject",
                 populate: {
                     path: "subjectName",
-                    model: "Subject", // Ensure correct subject model reference
+                    model: "Subject",
                 },
             })
             .lean();
 
         if (!students.length) return res.status(404).send("No students found");
 
-        // ✅ Fetch the division details separately
         const division = await divisionModel.findById(divisionId).lean();
 
         if (!division) return res.status(404).send("Division not found");

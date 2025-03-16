@@ -12,7 +12,6 @@ router.post("/", async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // ✅ Fetch student and properly populate related fields
         let student = await studentModel
             .findOne({ email })
             .populate({
@@ -23,20 +22,17 @@ router.post("/", async (req, res) => {
             .populate("year")
             .populate("department")
             .populate("division")
-            .lean(); // Converts Mongoose document to plain object
+            .lean(); 
 
-        // ✅ If student not found
         if (!student) {
             return res.status(404).send("Student not found");
         }
 
-        // ✅ Ensure password is compared correctly
         const isMatch = await bcrypt.compare(password, student.password);
         if (!isMatch) {
             return res.status(401).send("Invalid password");
         }
 
-        // ✅ Generate JWT Token
         const token = jwt.sign(
             { email: email, studentId: student._id },
             "secretkey",
@@ -45,7 +41,6 @@ router.post("/", async (req, res) => {
 
         res.cookie("token", token, { httpOnly: true });
 
-        // ✅ Debugging Output to check populated data
         console.log("Populated Student Data:", JSON.stringify(student, null, 2));
 
         return res.status(200).render("student-profile", { student });

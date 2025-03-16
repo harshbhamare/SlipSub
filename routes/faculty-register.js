@@ -3,7 +3,6 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
-
 const facultyModel = require("../models/faculty");
 const instituteModel = require("../models/institute");
 const departmentModel = require("../models/department");
@@ -44,7 +43,6 @@ router.post("/", async function (req, res) {
         let token = jwt.sign({ email: email, faculty: newFaculty._id }, "ishq", { expiresIn: "1h" });
         res.cookie("token", token);
 
-        // await newFaculty.save();
         return res.status(200).send("Faculty registration request sent for approval.");
 
     } catch (error) {

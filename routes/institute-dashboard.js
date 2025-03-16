@@ -14,26 +14,19 @@ router.get("/", async function (req, res) {
     }
 
     const decoded = jwt.verify(token, "prem"); 
-    // console.log("Decoded Token:", decoded); 
 
     const instituteId = decoded.instituteid; 
-    // console.log(instituteId)
     const email = decoded.email;
     if (!instituteId) {
         return res.status(400).send("Invalid Token: No Institute ID");
     }
 
-    const instituteData = await Institute.findById(instituteId).populate("departments");
-    // console.log("Institute Data:", instituteData);  
+    const instituteData = await Institute.findById(instituteId).populate("departments");  
 
     if (!instituteData) {
         return res.status(404).send("Institute not found");
     }
-
-    // If departments are still null or empty, log this information
-    // console.log("Departments:", instituteData.departments); 
-
-    res.render("institute-dashboard", {
+        res.render("institute-dashboard", {
         instituteModel: instituteData,
         departments: instituteData.departments
     });

@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 
-const Hod = require("../models/hod"); // ✅ Corrected import
+const Hod = require("../models/hod"); 
 const Institute = require("../models/institute");
 
 router.get("/", async (req, res) => {

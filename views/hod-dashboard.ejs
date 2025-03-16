@@ -57,16 +57,50 @@
                     <tr>
                         <td><%= faculty.name %></td>
                         <td><%= faculty.email %></td>
-                        <td><%= faculty.department %></td>
                         <td>
-                            <form action="/hod/approve/<%= faculty._id %>" method="post">
+
+                            <form action="/hod/faculty/approve/<%= faculty._id %>" method="POST">
+                                <select name="role" required onchange="toggleDivisionSelect(this, '<%= faculty._id %>')">
+                                    <option value="">Select Role</option>
+                                    <option value="Class Teacher">Class Teacher</option>
+                                    <option value="Faculty">Normal Faculty</option>
+                                </select>
+                            
+                                <div id="division-select-<%= faculty._id %>" style="display: none;">
+                                    <select name="divisionId" id="division-<%= faculty._id %>" style="width: 800px;">
+                                        <option value="">Select Division</option>
+                                        <% divisions.forEach(function(division) { %>
+                                            <option value="<%= division._id %>">
+                                                <%= division.divisionName %>
+                                            </option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            
                                 <button type="submit">Approve</button>
                             </form>
-                            <form action="/hod/deny/<%= faculty._id %>" method="post">
+                    
+                            <form action="/hod/faculty/deny/<%= faculty._id %>" method="POST" style="display:inline;">
                                 <button type="submit">Deny</button>
                             </form>
                         </td>
                     </tr>
+                    
+                    <script>
+                        function toggleDivisionSelect(selectElement, facultyId) {
+                            const divisionDiv = document.getElementById('division-select-' + facultyId);
+                            const divisionSelect = document.getElementById('division-' + facultyId);
+                    
+                            if (selectElement.value === "Class Teacher") {
+                                divisionDiv.style.display = 'block';
+                                divisionSelect.setAttribute('required', 'required');
+                            } else {
+                                divisionDiv.style.display = 'none';
+                                divisionSelect.removeAttribute('required');
+                                divisionSelect.value = ""; 
+                            }
+                        }
+                    </script>
                 <% }); %>
             </tbody>
         </table>

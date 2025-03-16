@@ -6,35 +6,32 @@ const Division = require("../models/division");
 const Subject = require("../models/subject");
 const Faculty = require("../models/faculty");
 const Department = require("../models/department"); 
-const Student = require("../models/student"); // Ensure Student model is required
+const Student = require("../models/student"); 
 
-// GET route to fetch divisions and subjects for a year
 router.get("/years/:yearId/divisions/view", async (req, res) => {
     try {
         const year = await Year.findById(req.params.yearId)
             .populate({
                 path: "divisions",
-                populate: { path: "department" }, // Ensure department is populated
+                populate: { path: "department" }, 
             });
 
         if (!year) {
             return res.status(404).send("Year not found");
         }
 
-        // ✅ Ensure divisions are correctly populated
         const divisions = await Division.find({ year: year._id }).populate("department");
 
-        // ✅ Populate faculty details properly (as an array)
         const subjects = await Subject.find({ year: year._id }).populate({
             path: "faculty",
-            select: "name email" // Select only necessary fields
+            select: "name email" 
         });
 
         const faculties = await Faculty.find();
 
         res.render("view-divisions", {
             year,
-            divisions, // ✅ Use fetched divisions
+            divisions, 
             subjects,
             faculties,
         });

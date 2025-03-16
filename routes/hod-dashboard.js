@@ -5,7 +5,8 @@ const Hod = require("../models/hod");
 const Department = require("../models/department");
 const Year = require("../models/year");
 const cookieParser = require("cookie-parser");
-const Faculty = require("../models/faculty")
+const Faculty = require("../models/faculty");
+const Division = require("../models/division")
 
 router.use(cookieParser());
 
@@ -16,7 +17,7 @@ router.get("/", async function (req, res) {
       return res.status(401).send("Access Denied: No Token Provided");
     }
 
-    const decoded = jwt.verify(token, "mh123"); // Use your secret key
+    const decoded = jwt.verify(token, "mh123");
     const hodId = decoded.hodid;
     const email = decoded.email;
 
@@ -24,20 +25,27 @@ router.get("/", async function (req, res) {
       return res.status(400).send("Invalid Token: No HOD ID");
     }
 
-    // Fetch HOD details along with department and years
     const hodData = await Hod.findById(hodId)
       .populate("department")
       .populate("year");
-
-      const pendingRequests = await Faculty.find({ status: "pending" });
 
     if (!hodData) {
       return res.status(404).send("HOD not found");
     }
 
+    const departmentId = hodData.department._id; 
+
+    const pendingRequests = await Faculty.find({ status: "pending" });
+
+    const divisions = await Division.find({ department: departmentId }).populate({
+      path: "year",
+      model: "Year"
+    });
+
     res.render("hod-dashboard", {
       hod: hodData,
       department: hodData.department,
+      divisions: divisions,    
       years: hodData.year,
       pendingRequests
     });
@@ -48,13 +56,43 @@ router.get("/", async function (req, res) {
   }
 });
 
-router.post("/hod/approve/:id", async (req, res) => {
+
+router.post("/hod/faculty/approve/:id", async (req, res) => {
   try {
       const facultyId = req.params.id;
-      const updatedFaculty = await Faculty.findByIdAndUpdate(facultyId, { status: "approved" }, { new: true });
+      let { divisionId, role } = req.body;
+
+      if (role === "Normal Faculty") {
+          role = "Faculty";
+      }
+
+      if (!role || (role !== "Class Teacher" && role !== "Faculty")) {
+          return res.status(400).send("Invalid role selected");
+      }
+
+      if (role === "Class Teacher" && divisionId) {
+          const existingClassTeacher = await Faculty.findOne({ classTeacherOf: divisionId, role: "Class Teacher" });
+
+          if (existingClassTeacher) {
+              return res.status(400).send("This division already has a class teacher assigned.");
+          }
+      }
+
+      const updatedFaculty = await Faculty.findByIdAndUpdate(facultyId, { 
+          status: "approved",
+          role: role
+      }, { new: true });
 
       if (!updatedFaculty) return res.status(404).send("Faculty not found");
-      
+
+      if (role === "Class Teacher" && divisionId) {
+          updatedFaculty.classTeacherOf = divisionId;
+          await updatedFaculty.save();
+      } else {
+          updatedFaculty.classTeacherOf = undefined;
+          await updatedFaculty.save();
+      }
+
       return res.status(200).send("Faculty approved successfully");
   } catch (error) {
       console.error("Error approving faculty:", error);
@@ -62,8 +100,8 @@ router.post("/hod/approve/:id", async (req, res) => {
   }
 });
 
-// Deny Faculty Request
-router.post("/hod/deny/:id", async (req, res) => {
+
+router.post("/hod/faculty/deny/:id", async (req, res) => {
   try {
       const facultyId = req.params.id;
       await Faculty.findByIdAndDelete(facultyId);

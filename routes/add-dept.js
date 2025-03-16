@@ -31,10 +31,8 @@ router.post("/", async function (req, res) {
             return res.status(404).send("Institute not found");
         }
 
-        // ✅ Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // ✅ Create new HOD profile
         const newHod = new Hod({
             head,
             email,
@@ -44,20 +42,17 @@ router.post("/", async function (req, res) {
 
         const savedHod = await newHod.save();
 
-        // ✅ Create new Department and assign HOD
         const newDepartment = new Department({
             name,
             head,
             institute: instituteId,
-            hod: savedHod._id, // Link HOD to department
+            hod: savedHod._id, 
         });
 
         const savedDepartment = await newDepartment.save();
 
-        // ✅ Push department ID to the HOD schema
         await Hod.findByIdAndUpdate(savedHod._id, { department: savedDepartment._id });
 
-        // ✅ Push department ID into the institute's `departments` array
         institute.departments.push(savedDepartment._id);
         await institute.save();
 

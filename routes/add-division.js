@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken")
 const Hod = require("../models/hod");
 const Year = require("../models/year");
 const Division = require("../models/division");
@@ -8,7 +9,7 @@ const Faculty = require("../models/faculty");
 const Department = require("../models/department"); 
 const Student = require("../models/student"); 
 
-// GET route to fetch divisions and subjects for a year
+
 router.get("/years/:yearId/divisions", async (req, res) => {
     try {
 
@@ -17,32 +18,30 @@ router.get("/years/:yearId/divisions", async (req, res) => {
           return res.status(401).send("Access Denied: No Token Provided");
         }
     
-        const decoded = jwt.verify(token, "prem"); 
+        const decoded = jwt.verify(token, "mh123"); 
         
         const year = await Year.findById(req.params.yearId)
             .populate({
                 path: "divisions",
-                populate: { path: "department" }, // Ensure department is populated
+                populate: { path: "department" }, 
             });
 
         if (!year) {
             return res.status(404).send("Year not found");
         }
 
-        // ✅ Ensure divisions are correctly populated
         const divisions = await Division.find({ year: year._id }).populate("department");
 
-        // ✅ Populate faculty details properly (as an array)
         const subjects = await Subject.find({ year: year._id }).populate({
             path: "faculty",
-            select: "name email" // Select only necessary fields
+            select: "name email" 
         });
 
         const faculties = await Faculty.find();
 
         res.render("manage-divisions", {
             year,
-            divisions, // ✅ Use fetched divisions
+            divisions, 
             subjects,
             faculties,
         });
@@ -100,17 +99,15 @@ router.post("/years/:yearId/subjects/add", async (req, res) => {
             return res.status(404).send("Year not found");
         }
 
-        // ✅ Check if the subject already exists
+   
         let subject = await Subject.findOne({ name, code });
 
         if (subject) {
-            // ✅ Add faculty ID if not already present
             if (!subject.faculty.includes(faculty)) {
                 subject.faculty.push(faculty);
                 await subject.save();
             }
         } else {
-            // ✅ Create new subject
             subject = new Subject({
                 name,
                 code,
@@ -121,18 +118,17 @@ router.post("/years/:yearId/subjects/add", async (req, res) => {
             await subject.save();
         }
 
-        // ✅ Ensure faculty's subjects list is updated
+       
         await Faculty.findByIdAndUpdate(faculty, {
-            $addToSet: { subjects: subject._id } // 🔹 This ensures faculty.subjects array is updated correctly
+            $addToSet: { subjects: subject._id }
         });
 
-        // ✅ Get all students in the year
+
         const students = await Student.find({ year: year._id });
 
-        // ✅ Update students' subjects array safely
         for (const student of students) {
             if (!Array.isArray(student.subject)) {
-                student.subject = []; // Ensure it's an array
+                student.subject = []; 
             }
 
             const alreadyExists = student.subject.some(subj => subj?.subjectName?.equals(subject._id));
