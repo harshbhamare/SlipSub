@@ -7,7 +7,8 @@ const FacultySchema = new mongoose.Schema({
   institute: { type: mongoose.Schema.Types.ObjectId, ref: "Institute", required: true },
   department: { type: mongoose.Schema.Types.ObjectId, ref: "Department", required: true },
   subjects: [{ type: mongoose.Schema.Types.ObjectId, ref: "Subject" }], // Faculty teaches subjects
-  cnumber : { type: Number, required: true}
+  cnumber : { type: Number, required: true},
+  status: { type: String, enum: ["pending", "approved", "denied"], default: "pending" },
 });
 
 module.exports = mongoose.model("Faculty", FacultySchema);

@@ -37,5 +37,41 @@
             <% }); %>
         </tbody>
     </table>
+
+    <br><br>
+
+    <h2>Pending Faculty Requests</h2>
+
+    <% if (pendingRequests.length > 0) { %>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% pendingRequests.forEach(function(faculty) { %>
+                    <tr>
+                        <td><%= faculty.name %></td>
+                        <td><%= faculty.email %></td>
+                        <td><%= faculty.department %></td>
+                        <td>
+                            <form action="/hod/approve/<%= faculty._id %>" method="post">
+                                <button type="submit">Approve</button>
+                            </form>
+                            <form action="/hod/deny/<%= faculty._id %>" method="post">
+                                <button type="submit">Deny</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No pending requests.</p>
+    <% } %>
 </body>
 </html>

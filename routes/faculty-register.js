@@ -23,11 +23,7 @@ router.post("/", async function (req, res) {
     let { fullname, email, password, cnumber, institute, department } = req.body;
 
     try {
-        // Validate Secret Key (Assuming each institute has a 'secretKey' field)
         const selectedInstitute = await instituteModel.findById(institute);
-        // if (!selectedInstitute || selectedInstitute.secretKey !== secret) {
-        //     return res.status(403).send("Invalid Secret Key for Institute.");
-        // }
 
         let faculty = await facultyModel.findOne({ email });
         if (faculty) return res.status(400).send("Faculty already exists.");
@@ -41,13 +37,15 @@ router.post("/", async function (req, res) {
             password: hashedPassword,
             cnumber,
             institute,
-            department
+            department,
+            status: "pending"
         });
 
         let token = jwt.sign({ email: email, faculty: newFaculty._id }, "ishq", { expiresIn: "1h" });
         res.cookie("token", token);
 
-        res.send("Faculty registered successfully.");
+        // await newFaculty.save();
+        return res.status(200).send("Faculty registration request sent for approval.");
 
     } catch (error) {
         console.error(error);

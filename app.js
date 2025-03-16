@@ -27,6 +27,8 @@ const viewDivisionRouter = require("./routes/view-division")
 
 const viewStudentRouter = require("./routes/view-students")
 
+const approveFacultyRouter = require("./routes/hod-dashboard")
+
 
 
 const db = require("./config/mongoose-connection")
@@ -56,6 +58,8 @@ app.use("/", viewDivisionRouter)
 app.use("/", addDivisionRouter)
 app.use("/", addYearRouter)
 app.use("/add-department", addDepartmentRouter)
+
+app.use("/", approveFacultyRouter)
 
 app.use("/", viewStudentRouter)
 

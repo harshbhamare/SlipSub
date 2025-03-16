@@ -6,11 +6,19 @@ const Division = require("../models/division");
 const Subject = require("../models/subject");
 const Faculty = require("../models/faculty");
 const Department = require("../models/department"); 
-const Student = require("../models/student"); // Ensure Student model is required
+const Student = require("../models/student"); 
 
 // GET route to fetch divisions and subjects for a year
 router.get("/years/:yearId/divisions", async (req, res) => {
     try {
+
+        const token = req.cookies.token;
+        if (!token) {
+          return res.status(401).send("Access Denied: No Token Provided");
+        }
+    
+        const decoded = jwt.verify(token, "prem"); 
+        
         const year = await Year.findById(req.params.yearId)
             .populate({
                 path: "divisions",
@@ -44,41 +52,6 @@ router.get("/years/:yearId/divisions", async (req, res) => {
     }
 });
 
-// router.post("/years/:yearId/divisions/add", async (req, res) => {
-//     try {
-//         const { divisionName } = req.body;
-//         const year = await Year.findById(req.params.yearId).populate("department");
-
-//         if (!year) {
-//             return res.status(404).send("Year not found");
-//         }
-
-//         if (!divisionName) {
-//             return res.status(400).send("Division name is required.");
-//         }
-
-//         // Create new division
-//         const newDivision = new Division({
-//             divisionName,
-//             year: year._id,
-//             department: year.department._id, // Auto-assign department
-//         });
-
-//         await newDivision.save();
-
-//         // ✅ Push division ID into Department's divisions array
-//         await Department.findByIdAndUpdate(year.department._id, { $push: { divisions: newDivision._id } });
-
-//         // ✅ Push division ID into Year's divisions array
-//         await Year.findByIdAndUpdate(year._id, { $push: { divisions: newDivision._id } });
-
-
-//         res.redirect(`/years/${year._id}/divisions`);
-//     } catch (error) {
-//         console.error("Error adding division:", error);
-//         res.status(500).send("Internal Server Error");
-//     }
-// });
 
 router.post("/years/:yearId/divisions/add", async (req, res) => {
     try {
@@ -93,7 +66,6 @@ router.post("/years/:yearId/divisions/add", async (req, res) => {
             return res.status(400).send("Division name is required.");
         }
 
-        // ✅ Create new division
         const newDivision = new Division({
             divisionName,
             year: year._id,
@@ -102,13 +74,10 @@ router.post("/years/:yearId/divisions/add", async (req, res) => {
 
         await newDivision.save();
 
-        // ✅ Push division ID into department's divisions array
         await Department.findByIdAndUpdate(year.department._id, { $push: { divisions: newDivision._id } });
 
-        // ✅ Push division ID into year's divisions array
         await Year.findByIdAndUpdate(year._id, { $push: { divisions: newDivision._id } });
 
-        // ✅ Push division ID into HOD schema
         await Hod.findByIdAndUpdate(year.department.hod, { $push: { divisions: newDivision._id } });
 
         res.redirect(`/years/${year._id}/divisions`);
