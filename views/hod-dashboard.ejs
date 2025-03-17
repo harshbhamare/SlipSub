@@ -107,5 +107,37 @@
     <% } else { %>
         <p>No pending requests.</p>
     <% } %>
+
+    <br> <br>
+    <hr>
+    <br> <br>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Faculty Name</th>
+                <th>Subjects</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% faculties.forEach(faculty => { %>
+            <tr>
+                <td><%= faculty.name %></td>
+                <td>
+                    <ul>
+                        <% faculty.subjects.forEach(subject => { %>
+                            <li><%= subject.name %></li>
+                        <% }) %>
+                    </ul>
+                </td>
+                <td><a href="/edit/<%= faculty.id %>">Edit</a></td>
+                <td><a href="/delete/<%= faculty.id %>" onclick="return confirm('Are you sure you want to delete this faculty?');">Delete</a></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    
 </body>
 </html>

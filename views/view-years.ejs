@@ -24,6 +24,33 @@
         <% }); %>
     </tbody>
 </table>
+
+<br> <br> <br>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Faculty Name</th>
+            <th>Subjects</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% faculties.forEach(faculty => { %>
+        <tr>
+            <td><%= faculty.name %></td>
+            <td>
+                <ul>
+                    <% faculty.subjects.forEach(subject => { %>
+                        <li><%= subject.name %></li>
+                    <% }) %>
+                </ul>
+            </td>
+        </tr>
+        <% }) %>
+    </tbody>
+</table>
+
+
   
 </body>
 </html>

@@ -42,12 +42,17 @@ router.get("/", async function (req, res) {
       model: "Year"
     });
 
+    const faculties = await Faculty.find({ department: departmentId })
+                                       .populate("subjects")
+                                       .lean();
+
     res.render("hod-dashboard", {
       hod: hodData,
       department: hodData.department,
       divisions: divisions,    
       years: hodData.year,
-      pendingRequests
+      pendingRequests,
+      faculties
     });
 
   } catch (error) {
