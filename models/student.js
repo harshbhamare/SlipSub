@@ -21,6 +21,8 @@ const StudentSchema = new mongoose.Schema({
             },
         },
     ],
+    status: { type: String, enum: ["pending", "approved"], default: "pending" }, 
+    defaulter: { type: Boolean, default: false } 
 });
 
 module.exports = mongoose.model("Student", StudentSchema);

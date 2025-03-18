@@ -40,7 +40,8 @@ router.post("/", async function (req, res) {
         let token = jwt.sign({ email: email, facultyid: faculty._id }, "ishq", { expiresIn: "7d" });
         res.cookie("token", token);
 
-        return res.status(200).send("Login successful");
+        // return res.status(200).render("classTeacher-dashboard");
+        res.redirect("/classteacher/dashboard");
 
     } catch (error) {
         console.error(error);

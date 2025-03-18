@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- classteacher-dashboard.ejs -->
+    <input type="text" id="searchInput" placeholder="Search student by name or hall ticket" />
+
+    <div id="suggestions"></div>
+    
+    <script>
+    document.getElementById("searchInput").addEventListener("input", function() {
+    const searchQuery = this.value;
+
+    if (searchQuery.length >= 3) { // fire when minimum 3 characters entered
+        fetch(`/classteacher/students/search?q=${searchQuery}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                
+                const suggestions = document.getElementById("suggestions");
+                suggestions.innerHTML = "";
+
+                if (Array.isArray(data)) {
+                    data.forEach(student => {
+                        const div = document.createElement("div");
+                        div.textContent = `${student.fullname} (${student.htnum})`;
+                        suggestions.appendChild(div);
+                    });
+                } else if (data.error) {
+                    alert(data.error);
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+    }
+});
+
+    </script>
+    
+
+    
+</body>
+</html>
