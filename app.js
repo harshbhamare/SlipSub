@@ -30,6 +30,7 @@ const viewStudentRouter = require("./routes/view-students")
 const approveFacultyRouter = require("./routes/hod-dashboard")
 
 const classTeacherRouter = require("./routes/class-teacher")
+const approveStudentRouter = require("./routes/class-teacher")
 
 
 
@@ -66,5 +67,6 @@ app.use("/", approveFacultyRouter)
 app.use("/", viewStudentRouter)
 
 app.use("/classteacher", classTeacherRouter)
+app.use("/", classTeacherRouter)
 
 app.listen(3000)
