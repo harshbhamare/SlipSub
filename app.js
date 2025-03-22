@@ -31,6 +31,11 @@ const approveFacultyRouter = require("./routes/hod-dashboard")
 
 const classTeacherRouter = require("./routes/class-teacher")
 const approveStudentRouter = require("./routes/class-teacher")
+const fetchStudentDetailRouter = require("./routes/class-teacher")
+const updateSubmissionStatusRouter = require("./routes/class-teacher")
+
+const viewStatusRouter = require("./routes/edit-status")
+const editStatusRouter = require("./routes/edit-status")
 
 
 
@@ -68,5 +73,10 @@ app.use("/", viewStudentRouter)
 
 app.use("/classteacher", classTeacherRouter)
 app.use("/", classTeacherRouter)
+app.use("/", fetchStudentDetailRouter)
+app.use("/", updateSubmissionStatusRouter)
+
+app.use("/", viewStatusRouter)
+app.use("/", editStatusRouter)
 
 app.listen(3000)

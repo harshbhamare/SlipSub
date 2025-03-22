@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const Faculty = require("../models/faculty");
 const Student = require("../models/student");
 const Division = require("../models/division")
+const Subject = require("../models/subject")
 
 router.get("/dashboard", async (req, res) => {
     try {
@@ -67,6 +68,7 @@ router.get("/students/search", async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
 
 router.post("/student/approve/:id", async (req, res) => {
     try {
