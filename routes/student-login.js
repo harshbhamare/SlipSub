@@ -25,6 +25,8 @@ router.post("/", async (req, res) => {
             .populate("division")
             .lean(); 
 
+      
+
         if (!student) {
             return res.status(404).send("Student not found");
         }
@@ -34,17 +36,26 @@ router.post("/", async (req, res) => {
             return res.status(401).send("Invalid password");
         }
 
-        const token = jwt.sign(
-            { email: email, studentId: student._id },
-            "process.env.STUDENT",
-            { expiresIn: "7d" }
-        );
+        const status = student.status;
 
-        res.cookie("token", token, { httpOnly: true });
+        if(status === "approved"){
+            const token = jwt.sign(
+                { email: email, studentId: student._id },
+                "process.env.STUDENT",
+                { expiresIn: "7d" }
+            );
+    
+            res.cookie("token", token, { httpOnly: true });
+    
+            // console.log("Populated Student Data:", JSON.stringify(student, null, 2));
+    
+            return res.status(200).render("student-profile", { student });
+            
+        } else{
+            res.send("Your Approval is Pending")
+        }
 
-        console.log("Populated Student Data:", JSON.stringify(student, null, 2));
-
-        return res.status(200).render("student-profile", { student });
+        
 
     } catch (error) {
         console.error("Error:", error);

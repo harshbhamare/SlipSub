@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Students from <%= divisionName %></title>
+        
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
     <h1>Students from <%= divisionName %></h1>
 
-    <table border="1">
+    <table id="myTable" border="1">
         <thead>
             <tr>
                 <th>Roll No.</th>
@@ -58,6 +60,21 @@
             <% } %>
         </tbody>
     </table>
+    <button onclick="downloadExcel()">Download Excel</button>
 
 </body>
+<script>
+    function downloadExcel() {
+        // Get the table
+        var table = document.getElementById("myTable");
+        
+        // Convert table to a worksheet
+        var workbook = XLSX.utils.table_to_book(table, {sheet: "Sheet1"});
+        
+        // Export to Excel
+        XLSX.writeFile(workbook, "table_data.xlsx");
+    }
+    </script>
+
+
 </html>
