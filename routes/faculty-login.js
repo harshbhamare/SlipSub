@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const facultyModel = require("../models/faculty");
 const instituteModel = require("../models/institute");
+require('dotenv').config();
 
 router.get("/", async function (req, res) {
     try {
@@ -37,10 +38,9 @@ router.post("/", async function (req, res) {
             return res.status(401).send("Invalid password");
         }
 
-        let token = jwt.sign({ email: email, facultyid: faculty._id }, "ishq", { expiresIn: "7d" });
+        let token = jwt.sign({ email: email, facultyid: faculty._id }, "process.env.FACULTY", { expiresIn: "7d" });
         res.cookie("token", token);
 
-        // return res.status(200).render("classTeacher-dashboard");
         res.redirect("/classteacher/dashboard");
 
     } catch (error) {

@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+require('dotenv').config();
 
 const Hod = require("../models/hod"); 
 const Institute = require("../models/institute");
@@ -35,7 +36,7 @@ router.post("/", async (req, res) => {
             return res.status(401).json({ error: "Invalid password" });
         }
 
-        let token = jwt.sign({ email, hodid: hod._id }, "mh123", { expiresIn: "7d" });
+        let token = jwt.sign({ email, hodid: hod._id }, "process.env.HOD", { expiresIn: "7d" });
         res.cookie("token", token, { httpOnly: true, secure: true });
 
         return res.redirect("/hod-dashboard");

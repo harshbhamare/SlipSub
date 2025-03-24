@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const cookieParser = require("cookie-parser")
 const instituteModel = require("../models/institute")
+require('dotenv').config();
 
 router.get("/", async function(req, res){
     const institutes = await instituteModel.find(); 
@@ -26,7 +27,7 @@ router.post("/", async function (req, res) {
             email,
             password: hashedPassword,
         });
-        let token = jwt.sign({email: email, instituteid: newInstitute._id}, "prem")
+        let token = jwt.sign({email: email, instituteid: newInstitute._id}, "process.env.INSTITUTE")
             res.cookie("token", token)
 
         res.send("Institute created successfully");

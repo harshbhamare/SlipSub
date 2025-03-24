@@ -1,9 +1,9 @@
 const express = require("express")
 const app = express();
-
 const router = require("router")
 const cookieParser = require("cookie-parser")
 const path = require("path")
+require('dotenv').config();
 
 const logoutRouter = require("./routes/logout")
 
@@ -39,7 +39,7 @@ const editStatusRouter = require("./routes/edit-status")
 
 
 
-const db = require("./config/mongoose-connection")
+// const db = require("./config/mongoose-connection")
 
 app.set('view engine', 'ejs')
 app.use(express.json())
@@ -79,4 +79,4 @@ app.use("/", updateSubmissionStatusRouter)
 app.use("/", viewStatusRouter)
 app.use("/", editStatusRouter)
 
-app.listen(3000)
+app.listen(process.env.PORT)

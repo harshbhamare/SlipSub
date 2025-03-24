@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+require('dotenv').config();
 
 const studentModel = require("../models/student");
 const instituteModel = require("../models/institute");
@@ -65,10 +66,11 @@ router.post("/", async function (req, res) {
             console.warn("Warning: Division not found, skipping update.");
         }
 
-        const token = jwt.sign({ email, studentId: newStudent._id }, "secretkey", { expiresIn: "7d" });
+        const token = jwt.sign({ email, studentId: newStudent._id }, "process.env.STUDENT", { expiresIn: "2hr" });
         res.cookie("token", token);
 
-        return res.status(201).json({ message: "Student registered successfully!", studentId: newStudent._id });
+        // return res.status(201).json({ message: "Student registered successfully!", studentId: newStudent._id });
+        return res.status(200).redirect('/student-login');
 
     } catch (error) {
         console.error("Error in student registration:", error);

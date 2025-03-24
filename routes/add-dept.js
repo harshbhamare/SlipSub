@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const Department = require("../models/department");
 const Institute = require("../models/institute");
 const Hod = require("../models/hod");
+require('dotenv').config();
 
 router.use(cookieParser());
 
@@ -17,7 +18,7 @@ router.post("/", async function (req, res) {
             return res.status(401).send("Access Denied: No Token Provided");
         }
 
-        const decoded = jwt.verify(token, "prem");
+        const decoded = jwt.verify(token, "process.env.HOD");
         const instituteId = decoded.instituteid;
 
         const { name, head, email, password } = req.body;

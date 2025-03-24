@@ -15,7 +15,7 @@ router.get("/dashboard", async (req, res) => {
             return res.status(401).send("Access Denied: No Token Provided");
         }
 
-        const decoded = jwt.verify(token, "ishq");
+        const decoded = jwt.verify(token, "process.env.FACULTY");
 
         const teacher = await Faculty.findById(decoded.facultyid);
 
@@ -39,7 +39,7 @@ router.get("/students/search", async (req, res) => {
         const token = req.cookies.token;
         if (!token) return res.status(401).json({ error: "No token provided" });
 
-        const decoded = jwt.verify(token, "ishq");
+        const decoded = jwt.verify(token, "process.env.FACULTY");
         const faculty = await Faculty.findById(decoded.facultyid);
 
         if (!faculty || faculty.status !== "approved") {
@@ -75,7 +75,7 @@ router.post("/student/approve/:id", async (req, res) => {
         const token = req.cookies.token;
         if (!token) return res.status(401).json({ error: "No token provided" });
 
-        const decoded = jwt.verify(token, "ishq");
+        const decoded = jwt.verify(token, "process.env.FACULTY");
 
         const teacher = await Faculty.findById(decoded.facultyid);
         if (!teacher || !teacher.classTeacherOf) return res.status(403).json({ error: "Not authorized" });
@@ -102,7 +102,7 @@ router.post("/student/deny/:id", async (req, res) => {
         const token = req.cookies.token;
         if (!token) return res.status(401).json({ error: "No token provided" });
 
-        const decoded = jwt.verify(token, "ishq");
+        const decoded = jwt.verify(token, "process.env.FACULTY");
 
         const teacher = await Faculty.findById(decoded.facultyid);
         if (!teacher || !teacher.classTeacherOf) return res.status(403).json({ error: "Not authorized" });

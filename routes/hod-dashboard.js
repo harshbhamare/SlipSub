@@ -17,7 +17,7 @@ router.get("/", async function (req, res) {
       return res.status(401).send("Access Denied: No Token Provided");
     }
 
-    const decoded = jwt.verify(token, "mh123");
+    const decoded = jwt.verify(token, "process.env.HOD");
     const hodId = decoded.hodid;
     const email = decoded.email;
 

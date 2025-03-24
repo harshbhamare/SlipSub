@@ -18,7 +18,7 @@ router.get("/years/:yearId/divisions", async (req, res) => {
           return res.status(401).send("Access Denied: No Token Provided");
         }
     
-        const decoded = jwt.verify(token, "mh123"); 
+        const decoded = jwt.verify(token, "process.env.HOD"); 
         
         const year = await Year.findById(req.params.yearId)
             .populate({

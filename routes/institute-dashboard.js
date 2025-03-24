@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const Institute = require("../models/institute");
 const cookieParser = require("cookie-parser");
+require('dotenv').config();
 
 router.use(cookieParser());
 
@@ -13,7 +14,7 @@ router.get("/", async function (req, res) {
       return res.status(401).send("Access Denied: No Token Provided");
     }
 
-    const decoded = jwt.verify(token, "prem"); 
+    const decoded = jwt.verify(token, "process.env.INSTITUTE"); 
 
     const instituteId = decoded.instituteid; 
     const email = decoded.email;

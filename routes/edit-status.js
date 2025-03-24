@@ -11,7 +11,7 @@ const Subject = require("../models/subject")
 router.get('/student/:id/edit-status', async (req, res) => {
     const { id } = req.params;
     const token = req.cookies.token;
-    const decoded = jwt.verify(token, "ishq");
+    const decoded = jwt.verify(token, "process.env.FACULTY");
     const facultyId = decoded.facultyid;
 
     const student = await Student.findById(id).populate("division");
@@ -30,9 +30,9 @@ router.get('/student/:id/edit-status', async (req, res) => {
     
     
     
-    console.log("facultySubjects:", facultySubjects);
-    console.log("divisionId:", divisionId);
-console.log("facultyId:", facultyId);
+//     console.log("facultySubjects:", facultySubjects);
+//     console.log("divisionId:", divisionId);
+// console.log("facultyId:", facultyId);
 
 
 

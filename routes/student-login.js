@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const studentModel = require("../models/student");
+require('dotenv').config();
 
 router.get("/", (req, res) => {
     res.render("student-login");
@@ -35,7 +36,7 @@ router.post("/", async (req, res) => {
 
         const token = jwt.sign(
             { email: email, studentId: student._id },
-            "secretkey",
+            "process.env.STUDENT",
             { expiresIn: "7d" }
         );
 

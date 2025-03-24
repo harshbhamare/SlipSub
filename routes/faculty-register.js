@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const facultyModel = require("../models/faculty");
 const instituteModel = require("../models/institute");
 const departmentModel = require("../models/department");
+require('dotenv').config();
 
 router.get("/", async function (req, res) {
     try {
@@ -40,7 +41,9 @@ router.post("/", async function (req, res) {
             status: "pending"
         });
 
-        let token = jwt.sign({ email: email, faculty: newFaculty._id }, "ishq", { expiresIn: "1h" });
+        console.log(process.env.FACULTY)
+
+        let token = jwt.sign({ email: email, faculty: newFaculty._id }, "process.env.FACULTY", { expiresIn: "24h" });
         res.cookie("token", token);
 
         return res.status(200).send("Faculty registration request sent for approval.");

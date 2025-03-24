@@ -3,6 +3,7 @@ const router = express.Router()
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const cookieParser = require("cookie-parser")
+require('dotenv').config();
 
 const instituteModel = require("../models/institute")
 
@@ -25,7 +26,7 @@ router.post("/", async function(req, res){
             }
 
             if (result) {
-                let token = jwt.sign({ email: email, instituteid: institute._id }, "prem", { expiresIn: "7d" });
+                let token = jwt.sign({ email: email, instituteid: institute._id }, "process.env.INSTITUTE", { expiresIn: "24hr" });
 
                 res.cookie("token", token);
 
