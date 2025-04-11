@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SlipSub Portal</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">SlipSub</div>
+        <div class="menu">
+            <a href="#">About Us</a>
+            <div class="btn-1">
+                <a href="#">Institute Login</a>
+                <img src="./imgs/login.png" alt="login" />
+            </div>
+            <div class="btn-1">
+                <a href="#">Faculty Login</a>
+                <img src="./imgs/login.png" alt="login" />
+            </div>
+            <div class="btn-1">
+                <a href="#">Student Login</a>
+                <img src="./imgs/login.png" alt="login" />
+            </div>
+        </div>
+    </div>
+
+    <div class="salutation">
+        <span>Welcome, </span>
+        <h3>Emerging Science and Technology</h3>
+        <span>Head of Department: Mrs. Kavita Bhosle</span>
+    </div>
+
+    <div class="dept-section">
+        <div class="box2-container">
+            <h4>Divisions for Emerging Science and Technology</h4>
+            <table>
+                <tr>
+                    <th>Division Name</th>
+                </tr>
+                <tr><td><a href="#">First Year - EST - A</a></td></tr>
+                <tr><td><a href="#">First Year - EST - B</a></td></tr>
+                <tr><td><a href="#">Second Year - EST - A</a></td></tr>
+                <tr><td><a href="#">Second Year - EST - B</a></td></tr>
+            </table>
+        </div>
+
+        <div class="box3-container">
+            <h4>Add Division</h4>
+            <form action="">
+                <label for="division-input">Enter Division:</label>
+                <input type="text" id="division-input" placeholder="e.g. First Year - EST - C">
+                <button type="submit">Add Division</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="dept-section-two">
+        <div class="box2-container">
+            <h4>Add Subjects</h4>
+            <form action="">
+                <label for="subject-name">Subject Name:</label>
+                <input type="text" id="subject-name" placeholder="Enter Subject Name" />
+
+                <label for="subject-code">Subject Code:</label>
+                <input type="text" id="subject-code" placeholder="Enter Subject Code" />
+
+                <label for="faculty-select">Select Year:</label>
+                <select id="faculty-select">
+                    <option value="">Select</option>
+                    <option>First Year - EST</option>
+                    <option>Second Year - EST</option>
+                    <option>Third Year - EST</option>
+                    <option>Fourth Year - EST</option>
+                </select>
+
+                <button type="submit">Create Subject</button>
+            </form>
+        </div>
+
+        <div class="box3-container">
+            <h4>Quick Links</h4>
+            <div class="quick-links">
+                <a href="#"><img src="./imgs/Vector.png" alt="">Dashboard</a>
+                <a href="#"><img src="./imgs/Vector.png" alt="">Manage Subjects</a>
+                <a href="#"><img src="./imgs/Vector.png" alt="">Assign Faculty</a>
+                <a href="#"><img src="./imgs/Vector.png" alt="">Manage Students</a>
+                <a href="#"><img src="./imgs/Vector.png" alt="">Logout</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

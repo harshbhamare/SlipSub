@@ -1,37 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Profile</title>
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/header.css">
 </head>
+
+
 <body>
-    <h3>Institute : <%= student.institute ? student.institute.iname : "N/A" %></h3>
-    <h3>Name : <%= student.fullname %> </h3>
-    <h3>Hall Ticket No. : <%= student.htnum %> </h3>
-    <h3>Email : <%= student.email %> </h3>
-    <h3>Year : <%= student.year ? student.year.year : "N/A" %></h3>
-    <h3>Department : <%= student.department ? student.department.name : "N/A" %></h3>
-    <h3>Division : <%= student.division ? student.division.divisionName : "N/A" %></h3>
-    
-    <h3>Subjects:</h3>
-<ul>
-  <% if (student.subject && student.subject.length > 0) { %>
-    <% student.subject.forEach(subject => { %>
-      <li>
-        <strong><%= subject.subjectName && subject.subjectName.name ? subject.subjectName.name : "N/A" %></strong>
-        <ul>
-          <li>Code: <%= subject.subjectName && subject.subjectName.code ? subject.subjectName.code : "N/A" %></li>
-          <li>CIE Submission: <%= subject.submissionStatus && subject.submissionStatus.CIE ? subject.submissionStatus.CIE : "N/A" %></li>
-          <li>TA Submission: <%= subject.submissionStatus && subject.submissionStatus.TA ? subject.submissionStatus.TA : "N/A" %></li>
-        </ul>
-      </li>
-    <% }) %>
-  <% } else { %>
-    <p>No subjects assigned yet.</p>
-  <% } %>
-</ul>
- 
-    
+    <div class="header">
+        <div class="logo">SlipSub</div>
+
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="menu" id="menu">
+            <a href="#">About Us</a>
+            <div class="btn-1">
+                <a href="#">Institute Login</a>
+                <img src="/images/header/login.png" alt="Login" />
+            </div>
+            <div class="btn-1">
+                <a href="#">Faculty Login</a>
+                <img src="/images/header/login.png" alt="Login" />
+            </div>
+            <div class="btn-1">
+                <a href="#">Student Login</a>
+                <img src="/images/header/login.png" alt="Login" />
+            </div>
+        </div>
+    </div>
+    <div class="salutation-bar">
+        <a href="logout.php" class="logout-btn">Logout</a>
+    </div>
+
+        <div class="salutation">
+            <span>Welcome, </span>
+            <h3><%= student.fullname %></h3>
+            <span>Institute Name : <%= student.institute ? student.institute.iname : "N/A" %></span>
+            <span>Class : <%= student.division ? student.division.divisionName : "N/A" %></span>
+            <span>Hall Ticket : <%= student.htnum %></span>
+        </div>
+
+    <div class="sub-slip">
+        <div class="box-container">
+            <h4>Submission Status</h4>
+
+            <!-- Responsive table wrapper -->
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Subject Code</th>
+                            <th>Subject Name</th>
+                            <th>TA Status</th>
+                            <th>CIE Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (student.subject && student.subject.length > 0) { %>
+                            <% student.subject.forEach(subject => { %>
+                        <tr>
+                            <td><%= subject.subjectName && subject.subjectName.code ? subject.subjectName.code : "N/A" %></td>
+                            <td><%= subject.subjectName && subject.subjectName.name ? subject.subjectName.name : "N/A" %></td>
+                            <td><%= subject.submissionStatus && subject.submissionStatus.TA ? subject.submissionStatus.TA : "N/A" %></td>
+                            <td><%= subject.submissionStatus && subject.submissionStatus.CIE ? subject.submissionStatus.CIE : "N/A" %></td>
+                        </tr>
+                        <% }) %>
+                        <% } else { %>
+                          <p>No subjects assigned yet.</p>
+                        <% } %>
+                        
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="stat">
+                <span>Registration Form : Pending</span>
+            </div>
+
+            <button class="download-btn">Download Submission Slip</button>
+        </div>
+    </div>
+
+
 </body>
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu");
+        menu.classList.toggle("show");
+    }
+</script>
+
 </html>

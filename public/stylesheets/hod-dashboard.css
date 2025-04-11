@@ -1,0 +1,365 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    min-width: 1024px;
+    overflow-x: auto;
+  }
+
+.header{
+    background-color: #060036;
+    display: flex;
+    padding: 0px 100px;
+    height: 90px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0px;
+
+}
+
+.header .logo{
+    color: white;
+    font-size: 48px;
+    font-family: "Instrument Sans", sans-serif;
+    font-weight: 600;
+}
+
+.header .menu{
+    display: flex;
+    
+}
+
+.header .menu a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-family: "Instrument Sans", sans-serif;
+    margin: 0px 40px;
+    background-color: rgba(255, 255, 255, 0.158);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.header .menu .btn-1{
+    display: flex;
+    align-items: center;
+    margin: 0px 20px;
+}
+
+.header .menu .btn-1 a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-family: "Instrument Sans", sans-serif;
+    margin: 0px 5px;
+    background-color: rgba(255, 255, 255, 0.158);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.salutation{
+    margin-bottom: 40px;
+}
+
+.salutation span:nth-child(1){
+    font-family: "Instrument Sans", sans-serif;
+    display: inline-block; 
+    font-size: 24px;
+    font-weight: 600;
+    color: #646464;
+    margin-left: 100px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.salutation h3{
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    margin-left: 100px;
+}
+
+.salutation span:nth-of-type(2){
+    font-family: "Instrument Sans", sans-serif;
+    display: inline-block; 
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+    margin-left: 100px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.dept-section {
+    display: flex;
+    justify-content: center; 
+    gap: 50px;
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.box2-container, .box3-container {
+
+    background-color: #F6F5F7; 
+    padding: 20px;
+    border-radius: 10px;
+    
+}
+
+.box2-container{
+    width: 55%; 
+}
+
+.box3-container{
+    width: 25%; 
+
+}
+
+.box2-container h4{
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 50px;
+    text-align: center;
+    margin-top: 20px;
+
+}
+
+.box3-container h4{
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 50px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+table {
+    display: flex;
+    justify-content: center;
+    border-collapse: separate;
+    margin-top: 20px;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+table tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+table tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+
+th{
+    padding: 15px 70px;
+    border: 1px solid #080808;
+    text-align: left;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+td {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    padding: 14px 40px;
+    border: 1px solid #ddd;
+    text-align: left;
+} 
+
+td a{
+    background-color: #060036;
+    color: white;
+    text-decoration: none;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+td a img {
+    margin-right: 5px;
+}
+
+th {
+    background-color: rgba(6, 0, 54, 0.16);
+}
+
+.quick-links{
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.quick-links form{
+    display: flex;
+    flex-direction: column;
+}
+
+.quick-links form label{
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    margin-left: 25px;
+}
+
+
+
+select {
+    width: 90%;
+    margin-left: 25px;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    transition: all 3s ease-in-out;
+    margin-bottom: 40px;
+}
+
+select:hover {
+    border-color: #1a1a1a;
+}
+
+select:focus {
+    border-color: #454545;
+}
+
+option {
+    background: white;
+    color: #333;
+    padding: 10px;
+    width: 90%;
+}
+
+form button{
+    background-color: #060036;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
+    width: 160px;
+    margin: 0 auto;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.view-department {
+    background-color: #F6F5F7;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 50px;
+    width: 80%;
+    margin: 0 auto; /* Centers the container */
+    text-align: center;
+}
+
+.view-department-two {
+    background-color: #F6F5F7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 50px;
+    width: 80%;
+    text-align: center;
+    margin: 50px auto;
+}
+
+
+.box-container h4{
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 50px;
+    
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    margin-top: 20px;
+    border-spacing: 0; 
+    border-radius: 10px; 
+    overflow: hidden; 
+}
+
+table tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+table tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+
+th{
+    padding: 15px 70px;
+    border: 1px solid #080808;
+    text-align: left;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+td {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    padding: 10px 55px;
+    border: 1px solid #ddd;
+    text-align: left;
+} 
+
+td a{
+    background-color: #060036;
+    color: white;
+    text-decoration: none;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+td a img {
+    margin-right: 5px;
+}
+
+th {
+    background-color: rgba(6, 0, 54, 0.16);
+}
+
+
+.dept-section {
+    display: flex;
+    justify-content: center; 
+    gap: 50px;
+    padding: 20px;
+    margin-top: 30px;
+}

@@ -1,143 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOD Dashboard</title>
+    <meta name="viewport" content="width=1024">
+    <title>SlipSub</title>
+    <link rel="stylesheet" href="/stylesheets/hod-dashboard.css">
+    <style>
+        /* Popup background */
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        /* Popup content */
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            width: 350px;
+            text-align: center;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
-    <h2>HOD: <%= hod.head %></h2>
-    <h2>Department: <%= department.name %></h2>
+    <div class="header">
+        <div class="logo">SlipSub</div>
+        <div class="menu">
+            <a href="">About Us</a>
+            <div class="btn-1"><a href="">Institute Login</a><img src="./imgs/login.png" alt="" /></div>
+            <div class="btn-1"><a href="">Faculty Login</a><img src="./imgs/login.png" alt="" /></div>
+            <div class="btn-1"><a href="">Student Login</a><img src="./imgs/login.png" alt="" /></div>
+        </div>
+    </div>
 
-    <h2>Manage Years for <%= department.name %></h2>
-    <form action="/departments/<%= department._id %>/years/add" method="post">
-        <select name="year">
-            <option value="">Select Year</option>
-            <option value="<%= `First Year - ${department.name}` %>"><%= `First Year - ${department.name}` %></option>
-            <option value="<%= `Second Year - ${department.name}` %>"><%= `Second Year - ${department.name}` %></option>
-            <option value="<%= `Third Year - ${department.name}` %>"><%= `Third Year - ${department.name}` %></option>
-            <option value="<%= `Fourth Year - ${department.name}` %>"><%= `Fourth Year - ${department.name}` %></option>
-        </select>
-        <button type="submit">Add Year</button>
-    </form>
+    <div class="salutation">
+        <span>Welcome, </span>
+        <h3><%= department.name %></h3>
+        <span>Head of Department : <%= hod.head %></span>
+    </div>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Year Name</th>
-                <th>Manage Year</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% years.forEach(function(year) { %>
+    <div class="dept-section">
+        <div class="box2-container">
+            <h4>Manage Years of Emerging Science and Technology</h4>
+            <table>
+                <tr>
+                    <th>Year Name</th>
+                    <th>Action</th>
+                </tr>
+                <% years.forEach(function(year) { %>
                 <tr>
                     <td><%= year.year %></td>
-                    <td><a href="/years/<%= year._id %>/divisions">Manage</a></td>
+                    <td>
+                        <a href="/years/<%= year._id %>/divisions">
+                            <img src="./imgs/Vector.png" alt="" /> View Department
+                        </a>
+                    </td>
                 </tr>
-            <% }); %>
-        </tbody>
-    </table>
+                <% }); %>
+            </table>
+        </div>
 
-    <br><br>
+        <div class="box3-container">
+            <h4>Add Year</h4>
+            <div class="quick-links">
+                <form action="/departments/<%= department._id %>/years/add" method="post">
+                    <label for="years">Select Year :</label>
+                    <select name="year" id="years">
+                        <option value="">Select</option>
+                        <option value="<%= `First Year - ${department.name}` %>"><%= `First Year - ${department.name}` %></option>
+                        <option value="<%= `Second Year - ${department.name}` %>"><%= `Second Year - ${department.name}` %></option>
+                        <option value="<%= `Third Year - ${department.name}` %>"><%= `Third Year - ${department.name}` %></option>
+                        <option value="<%= `Fourth Year - ${department.name}` %>"><%= `Fourth Year - ${department.name}` %></option>
+                    </select>
+                    <button type="submit">Add Year</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    <h2>Pending Faculty Requests</h2>
-
-    <% if (pendingRequests.length > 0) { %>
-        <table border="1">
-            <thead>
+    <div class="view-department">
+        <div class="box-container">
+            <h4>Faculty Requests</h4>
+            <% if (pendingRequests.length > 0) { %>
+            <table>
                 <tr>
-                    <th>Name</th>
+                    <th>Faculty Name</th>
                     <th>Email</th>
                     <th>Department</th>
                     <th>Action</th>
                 </tr>
-            </thead>
-            <tbody>
-                <% pendingRequests.forEach(function(faculty) { %>
-                    <tr>
-                        <td><%= faculty.name %></td>
-                        <td><%= faculty.email %></td>
-                        <td>
+                <% pendingRequests.forEach(function(faculty, index) { %>
+                <tr>
+                    <td><%= faculty.name %></td>
+                    <td><%= faculty.email %></td>
+                    <td><%= faculty.department %></td>
+                    <td>
+                        <button onclick="openPopup('popup-<%= index %>')">Review</button>
+                    </td>
+                </tr>
 
-                            <form action="/hod/faculty/approve/<%= faculty._id %>" method="POST">
-                                <select name="role" required onchange="toggleDivisionSelect(this, '<%= faculty._id %>')">
-                                    <option value="">Select Role</option>
-                                    <option value="Class Teacher">Class Teacher</option>
-                                    <option value="Faculty">Normal Faculty</option>
+                <!-- Popup -->
+                <div id="popup-<%= index %>" class="popup">
+                    <div class="popup-content">
+                        <span class="close" onclick="closePopup('popup-<%= index %>')">&times;</span>
+
+                        <form action="/hod/faculty/approve/<%= faculty._id %>" method="POST" style="margin-bottom: 15px;">
+                            <select name="role" required onchange="toggleDivisionSelect(this, '<%= index %>')"
+                                style="width: 75%; padding: 8px; margin-bottom: 10px;">
+                                <option value="">Select Role</option>
+                                <option value="Class Teacher">Class Teacher</option>
+                                <option value="Faculty">Normal Faculty</option>
+                            </select>
+
+                            <div id="division-select-<%= index %>" style="display: none;">
+                                <select name="divisionId" style="width: 75%; padding: 8px;">
+                                    <option value="">Select Division</option>
+                                    <% divisions.forEach(function(division) { %>
+                                    <option value="<%= division._id %>"><%= division.divisionName %></option>
+                                    <% }) %>
                                 </select>
-                            
-                                <div id="division-select-<%= faculty._id %>" style="display: none;">
-                                    <select name="divisionId" id="division-<%= faculty._id %>" style="width: 800px;">
-                                        <option value="">Select Division</option>
-                                        <% divisions.forEach(function(division) { %>
-                                            <option value="<%= division._id %>">
-                                                <%= division.divisionName %>
-                                            </option>
-                                        <% }) %>
-                                    </select>
-                                </div>
-                            
-                                <button type="submit">Approve</button>
-                            </form>
-                    
-                            <form action="/hod/faculty/deny/<%= faculty._id %>" method="POST" style="display:inline;">
-                                <button type="submit">Deny</button>
-                            </form>
-                        </td>
-                    </tr>
-                    
-                    <script>
-                        function toggleDivisionSelect(selectElement, facultyId) {
-                            const divisionDiv = document.getElementById('division-select-' + facultyId);
-                            const divisionSelect = document.getElementById('division-' + facultyId);
-                    
-                            if (selectElement.value === "Class Teacher") {
-                                divisionDiv.style.display = 'block';
-                                divisionSelect.setAttribute('required', 'required');
-                            } else {
-                                divisionDiv.style.display = 'none';
-                                divisionSelect.removeAttribute('required');
-                                divisionSelect.value = ""; 
-                            }
-                        }
-                    </script>
+                            </div>
+
+                            <button type="submit" style="background: #28a745; color: white; padding: 8px 15px;">Approve</button>
+                        </form>
+
+                        <form action="/hod/faculty/deny/<%= faculty._id %>" method="POST">
+                            <button type="submit" style="background: #dc3545; color: white; padding: 8px 15px;">Deny</button>
+                        </form>
+                    </div>
+                </div>
                 <% }); %>
-            </tbody>
-        </table>
-    <% } else { %>
-        <p>No pending requests.</p>
-    <% } %>
+            </table>
+            <% } else { %>
+            <p>No pending requests.</p>
+            <% } %>
+        </div>
+    </div>
 
-    <br> <br>
-    <hr>
-    <br> <br>
+    <script>
+        function openPopup(id) {
+            document.getElementById(id).style.display = "flex";
+        }
 
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Faculty Name</th>
-                <th>Subjects</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% faculties.forEach(faculty => { %>
-            <tr>
-                <td><%= faculty.name %></td>
-                <td>
-                    <ul>
-                        <% faculty.subjects.forEach(subject => { %>
-                            <li><%= subject.name %></li>
-                        <% }) %>
-                    </ul>
-                </td>
-                <td><a href="/edit/<%= faculty.id %>">Edit</a></td>
-                <td><a href="/delete/<%= faculty.id %>" onclick="return confirm('Are you sure you want to delete this faculty?');">Delete</a></td>
-            </tr>
-            <% }) %>
-        </tbody>
-    </table>
-    
+        function closePopup(id) {
+            document.getElementById(id).style.display = "none";
+        }
+
+        function toggleDivisionSelect(selectElement, index) {
+            const divSelect = document.getElementById(`division-select-${index}`);
+            if (selectElement.value === "Class Teacher") {
+                divSelect.style.display = "block";
+            } else {
+                divSelect.style.display = "none";
+            }
+        }
+    </script>
 </body>
+
 </html>

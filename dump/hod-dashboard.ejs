@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOD Dashboard</title>
+</head>
+<body>
+    <h2>HOD: <%= hod.head %></h2>
+    <h2>Department: <%= department.name %></h2>
+
+    <h2>Manage Years for <%= department.name %></h2>
+    <form action="/departments/<%= department._id %>/years/add" method="post">
+        <select name="year">
+            <option value="">Select Year</option>
+            <option value="<%= `First Year - ${department.name}` %>"><%= `First Year - ${department.name}` %></option>
+            <option value="<%= `Second Year - ${department.name}` %>"><%= `Second Year - ${department.name}` %></option>
+            <option value="<%= `Third Year - ${department.name}` %>"><%= `Third Year - ${department.name}` %></option>
+            <option value="<%= `Fourth Year - ${department.name}` %>"><%= `Fourth Year - ${department.name}` %></option>
+        </select>
+        <button type="submit">Add Year</button>
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Year Name</th>
+                <th>Manage Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% years.forEach(function(year) { %>
+                <tr>
+                    <td><%= year.year %></td>
+                    <td><a href="/years/<%= year._id %>/divisions">Manage</a></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+    <br><br>
+
+    <h2>Pending Faculty Requests</h2>
+
+    <% if (pendingRequests.length > 0) { %>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% pendingRequests.forEach(function(faculty) { %>
+                    <tr>
+                        <td><%= faculty.name %></td>
+                        <td><%= faculty.email %></td>
+                        <td>
+
+                            <form action="/hod/faculty/approve/<%= faculty._id %>" method="POST">
+                                <select name="role" required onchange="toggleDivisionSelect(this, '<%= faculty._id %>')">
+                                    <option value="">Select Role</option>
+                                    <option value="Class Teacher">Class Teacher</option>
+                                    <option value="Faculty">Normal Faculty</option>
+                                </select>
+                            
+                                <div id="division-select-<%= faculty._id %>" style="display: none;">
+                                    <select name="divisionId" id="division-<%= faculty._id %>" style="width: 800px;">
+                                        <option value="">Select Division</option>
+                                        <% divisions.forEach(function(division) { %>
+                                            <option value="<%= division._id %>">
+                                                <%= division.divisionName %>
+                                            </option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            
+                                <button type="submit">Approve</button>
+                            </form>
+                    
+                            <form action="/hod/faculty/deny/<%= faculty._id %>" method="POST" style="display:inline;">
+                                <button type="submit">Deny</button>
+                            </form>
+                        </td>
+                    </tr>
+                    
+                    <script>
+                        function toggleDivisionSelect(selectElement, facultyId) {
+                            const divisionDiv = document.getElementById('division-select-' + facultyId);
+                            const divisionSelect = document.getElementById('division-' + facultyId);
+                    
+                            if (selectElement.value === "Class Teacher") {
+                                divisionDiv.style.display = 'block';
+                                divisionSelect.setAttribute('required', 'required');
+                            } else {
+                                divisionDiv.style.display = 'none';
+                                divisionSelect.removeAttribute('required');
+                                divisionSelect.value = ""; 
+                            }
+                        }
+                    </script>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No pending requests.</p>
+    <% } %>
+
+    <br> <br>
+    <hr>
+    <br> <br>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Faculty Name</th>
+                <th>Subjects</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% faculties.forEach(faculty => { %>
+            <tr>
+                <td><%= faculty.name %></td>
+                <td>
+                    <ul>
+                        <% faculty.subjects.forEach(subject => { %>
+                            <li><%= subject.name %></li>
+                        <% }) %>
+                    </ul>
+                </td>
+                <td><a href="/edit/<%= faculty.id %>">Edit</a></td>
+                <td><a href="/delete/<%= faculty.id %>" onclick="return confirm('Are you sure you want to delete this faculty?');">Delete</a></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    
+</body>
+</html>

@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    background-color: #060036;
+    display: flex;
+    padding: 0px 100px;
+    height: 90px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0px;
+
+}
+
+.header .logo{
+    color: white;
+    font-size: 48px;
+    font-family: "Instrument Sans", sans-serif;
+    font-weight: 600;
+}
+
+.header .menu{
+    display: flex;
+    
+}
+
+.header .menu a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-family: "Instrument Sans", sans-serif;
+    margin: 0px 40px;
+    background-color: rgba(255, 255, 255, 0.158);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.header .menu .btn-1{
+    display: flex;
+    align-items: center;
+    margin: 0px 20px;
+}
+
+.header .menu .btn-1 a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-family: "Instrument Sans", sans-serif;
+    margin: 0px 5px;
+    background-color: rgba(255, 255, 255, 0.158);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.salutation{
+    margin-bottom: 40px;
+}
+
+.salutation span:nth-child(1){
+    font-family: "Instrument Sans", sans-serif;
+    display: inline-block; 
+    font-size: 24px;
+    font-weight: 600;
+    color: #646464;
+    margin-left: 100px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.salutation h3{
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    margin-left: 100px;
+}
+
+.salutation span:nth-of-type(2){
+    font-family: "Instrument Sans", sans-serif;
+    display: inline-block; 
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+    margin-left: 100px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+
+.box-container{
+    background-color: #F6F5F7;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 50px;
+    width: 80%;
+    margin: 0 auto; /* Centers the container */
+    text-align: center;
+}
+
+.box-container h4{
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 50px;
+    
+}
+
+.box-container table {
+    width: 100%;
+    border-collapse: separate;
+    margin-top: 20px;
+    border-spacing: 0; 
+    border-radius: 10px; 
+    overflow: hidden; 
+}
+
+.box-container table tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+.box-container table tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+}
+
+.box-container table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+.box-container table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+
+.box-container th{
+    padding: 5px 40px;
+    border: 1px solid #080808;
+    text-align: left;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.box-container td {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    padding: 10px 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+} 
+
+.box-container th {
+    background-color: rgba(6, 0, 54, 0.16);
+    text-align: center;
+}
