@@ -2,57 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1024">
-    <title>Document</title>
-    <link rel="stylesheet" href="/stylesheets/student-list.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>udents from <%= divisionName %></title>
+        
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">SlipSub</div>
-        <div class="menu">
-            <a href="">About Us</a>
-            <div class="btn-1">
-                <a href="">Institute Login</a>
-                <img src="./imgs/login.png" alt="" />
-            </div>
-            <div class="btn-1">
-                <a href="">Faculty Login</a>
-                <img src="./imgs/login.png" alt="" />
-            </div>
-            <div class="btn-1">
-                <a href="">Student Login</a>
-                <img src="./imgs/login.png" alt="" />
-            </div>
-        </div>
-    </div>
 
-    <div class="salutation-bar">
-        <a href="logout.php" class="logout-btn">Logout</a>
-    </div>
+    <h1>Students from <%= divisionName %></h1>
 
-    <div class="salutation">
-        <span>Welcome, </span>
-        <h3>Emerging Science and Technology</h3>
-        <span>Head of Department : Mrs. Kavita Bhosle</span>
-    </div>
-
-    <div class="box-container" style="overflow-x: auto;">
-        <h4>Students Forum : <%= divisionName %></h4>
-
-        <table id="myTable">
+    <table id="myTable" border="1">
+        <thead>
             <tr>
-                <th rowspan="2">Roll No.</th> 
-                <th rowspan="2">Student Name</th>                
-                <th rowspan="2">Email</th>
-                <th rowspan="2">Hall Ticket No.</th>
-                <th rowspan="2">Subject</th>
-                <th colspan="2">Submission</th>
+                <th>Roll No.</th>
+                <th>Student Name</th>
+                <th>Email</th>
+                <th>WhatsApp Number</th>
+                <th>Hall Ticket Number</th>
+                <th>Subject</th>
+                <th>TA Submission</th>
+                <th>CIE Submission</th>
             </tr>
-            <tr>
-                <th>TA</th>
-                <th>CIE</th>
-            </tr>
+        </thead>
+        <tbody>
             <% if (students && students.length > 0) { %>
                 <% students.forEach(function(student) { %>
                     <% if (student.subject && student.subject.length > 0) { %>
@@ -62,6 +34,7 @@
                                     <td rowspan="<%= student.subject.length %>"><%= student.rollNumber || "N/A" %></td>
                                     <td rowspan="<%= student.subject.length %>"><%= student.fullname %></td>
                                     <td rowspan="<%= student.subject.length %>"><%= student.email %></td>
+                                    <td rowspan="<%= student.subject.length %>"><%= student.whatsappNumber || "N/A" %></td>
                                     <td rowspan="<%= student.subject.length %>"><%= student.htnum %></td>
                                 <% } %>
                                 <td><%= subj.subjectName.name || "N/A" %></td>
@@ -85,19 +58,11 @@
                     <td colspan="8">No students found in this division</td>
                 </tr>
             <% } %>
-            
-        </table>
-       
-    </div>
-    <div class="download-btn" style="display: flex; justify-content: center; margin: 30px 0;">
-        <button onclick="downloadExcel()" style="background-color: #060036; color: white; padding: 12px 24px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: background-color 0.3s ease;">
-            Download Excel
-        </button>
-    </div>
-    
-    
-</body>
+        </tbody>
+    </table>
+    <button onclick="downloadExcel()">Download Excel</button>
 
+</body>
 <script>
     function downloadExcel() {
         // Get the table
@@ -109,5 +74,7 @@
         // Export to Excel
         XLSX.writeFile(workbook, "table_data.xlsx");
     }
-</script>
+    </script>
+
+
 </html>

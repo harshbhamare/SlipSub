@@ -25,7 +25,8 @@ router.get("/years/:divisionId/student-list", async function (req, res) {
             })
             .lean();
 
-        if (!students.length) return res.status(404).send("No students found");
+        // if (!students.length) return res.status(404).send("No students found");
+        if (!students.length) return res.status(404).send({ message: "No Student Found in DIVISION" });
 
         const division = await divisionModel.findById(divisionId).lean();
 

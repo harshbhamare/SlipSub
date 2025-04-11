@@ -42,7 +42,7 @@ router.post("/departments/:departmentId/years/add", async (req, res) => {
 
     await Hod.findByIdAndUpdate(department.hod, { $push: { year: newYear._id } });
 
-    res.redirect(`/departments/${departmentId}/years`);
+    res.redirect(`/hod-dashboard`);
   } catch (error) {
     console.error("Error adding year:", error);
     res.status(500).send("Internal Server Error");

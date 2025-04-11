@@ -54,6 +54,10 @@
         </div>
     </div>
 
+    <div class="salutation-bar">
+        <a href="logout.php" class="logout-btn">Logout</a>
+    </div>
+
     <div class="salutation">
         <span>Welcome, </span>
         <h3><%= department.name %></h3>
@@ -153,7 +157,7 @@
                 <% }); %>
             </table>
             <% } else { %>
-            <p>No pending requests.</p>
+            <p style="font-family: Inter, sans-serif"; font-weight: 500; font-size: 16px;>No pending requests.</p>
             <% } %>
         </div>
     </div>

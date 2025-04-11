@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Divisions & Subjects</title>
+</head>
+<body>
+  <h2>Manage Divisions for <%= year.year %></h2>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Division Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% divisions.forEach(function(division) { %>
+        <tr>
+          <td><a href="/years/<%= division._id %>/student-list"><%= division.divisionName %></a></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  <h3>Add New Division</h3>
+  <form action="/years/<%= year._id %>/divisions/add" method="POST">
+    <label for="divisionName"><%= `${year.year} - Division Name:` %></label>
+    <input type="text" name="divisionName" style="width: 500px;" value="<%= `${year.year} - ` %>" required >
+    <button type="submit">Add</button>
+  </form>
+
+  <br><br><hr><br><br>
+
+  <h2>Subjects</h2>
+
+  <h3>Add New Subject</h3>
+<form action="/years/<%= year._id %>/subjects/add" method="POST" style="border: 1px solid black; padding: 20px;">
+    <input type="text" name="code" placeholder="Subject Code" required>
+    <input type="text" name="name" placeholder="Subject Name" required>
+
+   
+    <select name="faculty" required>
+      <option value="">Select Faculty</option>
+      <% faculties.forEach(function(faculty) { %>
+        <option value="<%= faculty._id %>"><%= faculty.name %></option>
+      <% }); %>
+    </select>
+
+    <button type="submit">Add Subject</button>
+</form>
+
+
+  <br><br>
+
+
+  <table border="1">
+    <thead>
+        <tr>
+            <th>Subject Name</th>
+            <th>Subject Code</th>
+            <th>Faculty Assigned</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% subjects.forEach(subject => { %>
+            <tr>
+                <td><%= subject.name %></td>
+                <td><%= subject.code %></td>
+                <td>
+                    <% if (subject.faculty.length > 0) { %>
+                        <%= subject.faculty.map(fac => fac.name).join(", ") %>
+                    <% } else { %>
+                        No Faculty Assigned
+                    <% } %>
+                </td>
+            </tr>
+        <% }); %>
+    </tbody>
+</table>
+
+</body>
+</html>

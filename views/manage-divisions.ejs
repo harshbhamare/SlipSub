@@ -1,72 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manage Divisions & Subjects</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/manage-divisions.css">
 </head>
+<style>
+    /* Popup background */
+    .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Popup content */
+    .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        position: relative;
+        width: 300px;
+        text-align: center;
+    }
+
+    /* Close button */
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+
 <body>
-  <h2>Manage Divisions for <%= year.year %></h2>
+    <div class="header">
+        <div class="logo">SlipSub</div>
+        <div class="menu">
+            <a href="">About Us</a>
+            <div class="btn-1">
+                <a href="">Institute Login</a>
+                <img src="./imgs/login.png" alt="" />
+            </div>
+            <div class="btn-1">
+                <a href="">Faculty Login</a>
+                <img src="./imgs/login.png" alt="" />
+            </div>
+            <div class="btn-1">
+                <a href="">Student Login</a>
+                <img src="./imgs/login.png" alt="" />
+            </div>
+        </div>
+    </div>
 
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Division Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% divisions.forEach(function(division) { %>
-        <tr>
-          <td><a href="/years/<%= division._id %>/student-list"><%= division.divisionName %></a></td>
-        </tr>
-      <% }); %>
-    </tbody>
-  </table>
+    <div class="salutation-bar">
+        <a href="logout.php" class="logout-btn">Logout</a>
+    </div>
 
-  <h3>Add New Division</h3>
-  <form action="/years/<%= year._id %>/divisions/add" method="POST">
-    <label for="divisionName"><%= `${year.year} - Division Name:` %></label>
-    <input type="text" name="divisionName" style="width: 500px;" value="<%= `${year.year} - ` %>" required >
-    <button type="submit">Add</button>
-  </form>
+    <div class="salutation">
+        <span>Welcome, </span>
+        <h3>Emerging Science and Technology</h3>
+        <span>Head of Department : Mrs. Kavita Bhosle</span>
+    </div>
 
-  <br><br><hr><br><br>
+    <div class="dept-section">
+        <div class="box2-container">
+            <h4>Divisions for <%= year.year %></h4>
 
-  <h2>Subjects</h2>
+            <table>                
+                <tr>
+                    <th>Division Name</th>
+                </tr>
+                <% divisions.forEach(function(division) { %>
+                <tr>
+                    <td><a href="/years/<%= division._id %>/student-list"><%= division.divisionName %></a></td>
+                </tr>
+                <% }); %>
+            </table>
+        </div>
 
-  <h3>Add New Subject</h3>
-<form action="/years/<%= year._id %>/subjects/add" method="POST" style="border: 1px solid black; padding: 20px;">
-    <input type="text" name="code" placeholder="Subject Code" required>
-    <input type="text" name="name" placeholder="Subject Name" required>
+        <div class="box3-container">
+            <h4>Add Division</h4>
 
-   
-    <select name="faculty" required>
-      <option value="">Select Faculty</option>
-      <% faculties.forEach(function(faculty) { %>
-        <option value="<%= faculty._id %>"><%= faculty.name %></option>
-      <% }); %>
-    </select>
+            <div class="quick-links">
+                <form action="/years/<%= year._id %>/divisions/add" method="post">
+                    <label for="divisionName">Enter Division :</label>
 
-    <button type="submit">Add Subject</button>
-</form>
+                    <input type="text" name="divisionName" value="<%= `${year.year} - ` %>">
 
+                    <button type="submit">Add Division</button>
+                </form>
 
-  <br><br>
+            </div>
+        </div>
+    </div>
 
+    <div class="dept-section-two">
+        <div class="box2-container">
+            <h4>Add Subjects</h4>
 
-  <table border="1">
-    <thead>
-        <tr>
-            <th>Subject Name</th>
-            <th>Subject Code</th>
-            <th>Faculty Assigned</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% subjects.forEach(subject => { %>
+            <form action="/years/<%= year._id %>/subjects/add" method="post">
+                <label for="">Subject Name : </label>
+                <input type="text" name="name" placeholder="Enter Subject Name" />
+
+                <label for="">Subject Code : </label>
+                <input type="text" name="code" placeholder="Enter Subject Code" />
+
+                <label for="faculty">Select Faculty : </label>
+                <select name="faculty" id="cars">
+                    <option value="">Select</option>
+                    <% faculties.forEach(function(faculty) { %>
+                        <option value="<%= faculty._id %>"><%= faculty.name %></option>
+                    <% }); %>
+                </select>
+
+                <button type="submit">Add Subject</button>
+            </form>
+        </div>
+
+        <div class="box3-container">
+            <h4>Quick Links</h4>
+
+            <div class="quick-links">  
+                <a href=""> <img src="./imgs/Vector.png" alt="">Visit Dashboard</a>
+                <a href=""> <img src="./imgs/Vector.png" alt="">Visit Dashboard</a>
+                <a href=""> <img src="./imgs/Vector.png" alt="">Visit Dashboard</a>
+                <a href=""> <img src="./imgs/Vector.png" alt="">Visit Dashboard</a>
+                <a href=""> <img src="./imgs/Vector.png" alt="">Visit Dashboard</a>
+
+            </div>            
+        </div>
+    </div>
+
+    <div class="box-container">
+        <h4>Subject Assigned Forum</h4>
+
+        <table>
             <tr>
-                <td><%= subject.name %></td>
+                <th>Subject Code</th> 
+                <th>Subject Name</th>                
+                <th>Faculty Name</th>
+            </tr>
+            <% subjects.forEach(subject => { %>
+            <tr>
                 <td><%= subject.code %></td>
+                <td><%= subject.name %></td>
                 <td>
                     <% if (subject.faculty.length > 0) { %>
                         <%= subject.faculty.map(fac => fac.name).join(", ") %>
@@ -75,9 +163,11 @@
                     <% } %>
                 </td>
             </tr>
-        <% }); %>
-    </tbody>
-</table>
+            <% }); %>
+        </table>
+       
+    </div>
 
 </body>
+
 </html>
