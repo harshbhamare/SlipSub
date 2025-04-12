@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Teacher Dashboard</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin: 2px;
+            cursor: pointer;
+        }
+
+        select {
+            padding: 5px;
+        }
+
+        #suggestions {
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            max-width: 300px;
+            background: #f9f9f9;
+        }
+
+        #suggestions div {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        #suggestions div:hover {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Class Teacher Dashboard</h2>
+
+    <input type="text" id="searchInput" placeholder="Search student by name or hall ticket" autocomplete="off" />
+    <div id="suggestions"></div>
+
+    <% if (pendingRequests.length > 0) { %>
+    <table id="studentsTable">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Hall Ticket</th>
+                <th>Status</th>
+                <th>Defaulter</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% pendingRequests.forEach(function(student) { %>
+            <tr>
+                <td><%= student.fullname %></td>
+                <td><%= student.htnum %></td>
+                <td><%= student.status %></td>
+                <td>
+                    <form action="/student/approve/<%= student._id %>" method="POST">
+                    <select name="defaulter" required>
+                        <option value="no" <%= student.defaulter === "no" ? "selected" : "" %>>No</option>
+                        <option value="yes" <%= student.defaulter === "yes" ? "selected" : "" %>>Yes</option>
+                        
+                    </select>
+                </td>
+                <td>
+                    <button type="submit">Approve</button>
+                    </form>
+                    <form action="/student/deny/<%= student._id %>" method="POST" style="display:inline;">
+                        <button type="submit">Deny</button>
+                    </form>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <% } else { %>
+    <p>No pending requests.</p>
+    <% } %>
+
+    <style>
+        #suggestions div {
+            padding: 8px;
+            cursor: pointer;
+            border-bottom: 1px solid #ccc;
+        }
+    
+        #suggestions div:hover {
+            background-color: #f0f0f0;
+        }
+    
+        #studentDetailsContainer {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fafafa;
+        }
+    
+        form#statusForm div {
+            margin-bottom: 10px;
+        }
+    
+        form#statusForm select {
+            padding: 5px;
+            margin-left: 10px;
+        }
+    
+        button[type="submit"] {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    
+        button[type="submit"]:hover {
+            background: #45a049;
+        }
+    </style>
+
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const suggestions = document.getElementById("suggestions");
+    
+        searchInput.addEventListener("input", function () {
+            const query = this.value.trim();
+    
+            if (query.length >= 3) {
+                fetch(`/students/search?q=${query}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        suggestions.innerHTML = "";
+                        if (Array.isArray(data) && data.length > 0) {
+                            data.forEach(student => {
+                                const div = document.createElement("div");
+                                div.textContent = `${student.fullname} (${student.htnum})`;
+                                div.classList.add('suggestion-item'); // Optional styling
+    
+                                div.addEventListener("click", () => {
+                                    // Redirect to the dedicated status edit page
+                                    window.location.href = `/student/${student._id}/edit-status`;
+                                });
+    
+                                suggestions.appendChild(div);
+                            });
+                        } else {
+                            suggestions.innerHTML = "<div>No students found</div>";
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Error fetching search:", err);
+                    });
+            } else {
+                suggestions.innerHTML = "";
+            }
+        });
+    </script>
+</body>
+
+</html>

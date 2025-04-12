@@ -1,58 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1024" />
   <title>Document</title>
+  <link rel="stylesheet" href="/stylesheets/view-years.css" />
 </head>
+
 <body>
-  <h2>View Years for <%= department.name %></h2>
+  <div class="header">
+    <div class="logo">SlipSub</div>
+    <div class="menu">
+      <a href="">About Us</a>
+      <div class="btn-1">
+        <a href="">Institute Login</a>
+        <img src="./imgs/login.png" alt="" />
+      </div>
+      <div class="btn-1">
+        <a href="">Faculty Login</a>
+        <img src="./imgs/login.png" alt="" />
+      </div>
+      <div class="btn-1">
+        <a href="">Student Login</a>
+        <img src="./imgs/login.png" alt="" />
+      </div>
+    </div>
+  </div>
 
-  <table border="1">
-    <thead>
-        <th>Year Name</th>
-        <th>Manage Year</th>
- 
-    </thead>
-    <tbody>
-        <% years.forEach(function(year) { %>
-            <tr>
-                <td><%= year.year %></td>
-                <td><a href="/years/<%=year.id%>/divisions/view">Manage</a></td>
-            </tr>
-            
-        <% }); %>
-    </tbody>
-</table>
+  <div class="salutation">
+    <span>Welcome, </span>
+    <h3>Maharashtra Institute of Technology, Chhatrapati Sambhajinagar</h3>
+    <span>Institute code : 2323</span>
+  </div>
+  <div class="View">
+    <div class="box-container">
+      <h4>View Years of <%= department.name %></h4>
 
-<br> <br> <br>
-
-<table border="1" cellpadding="8" cellspacing="0">
-    <thead>
+      <table>
         <tr>
+          <th>Year name</th>
+          <th>Action</th>
+        </tr>
+        <% years.forEach(function(year) { %>
+          <tr>
+            <td><%= year.year %></td>
+          
+            <td>
+              <a href="/years/<%=year.id%>/divisions/view"><img src="./imgs/Vector.png" alt="" /> View Department</a>
+            </td>
+          </tr>
+        <% }); %>
+        
+      </table>
+    </div>
+
+    <div class="box-container-two ">
+      <h4>Quick Links</h4>
+
+      <div class="quick-links">  
+        <a href=""> <img src="../imgs/Vector.png" alt="">Visit Dashboard</a>
+        <a href=""> <img src="../imgs/Vector.png" alt="">Visit Dashboard</a>
+        <a href=""> <img src="../imgs/Vector.png" alt="">Visit Dashboard</a>
+        <a href=""> <img src="../imgs/Vector.png" alt="">Visit Dashboard</a>
+        <a href=""> <img src="../imgs/Vector.png" alt="">Visit Dashboard</a>
+
+    </div>
+
+
+    </div>
+  </div>
+  <div class="box-1">
+    <div class="container">
+      <table class="faculty-table">
+        <h2>Faculty Assigned</h2>
+        <thead>
+          <tr>
             <th>Faculty Name</th>
             <th>Subjects</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% faculties.forEach(faculty => { %>
-        <tr>
+          </tr>
+        </thead>
+        <tbody>
+          <% faculties.forEach(faculty => { %>
+          <tr>
             <td><%= faculty.name %></td>
             <td>
-                <ul>
-                    <% faculty.subjects.forEach(subject => { %>
-                        <li><%= subject.name %></li>
-                    <% }) %>
-                </ul>
+              <ul>
+                <% faculty.subjects.forEach(subject => { %>
+                  <li><%= subject.name %></li>
+                <% }) %>
+                
+              </ul>
             </td>
-        </tr>
-        <% }) %>
-    </tbody>
-</table>
+          </tr>
+          <% }) %>
+          <tr>
+            <td>Mr.Kiran Chaudhari</td>
+            <td>
+              <ul>
+                <li>Product Marketing</li>
+                <li>Product Marketing</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Mr.Kiran Chaudhari</td>
+            <td>
+              <ul>
+                <li>Product Marketing</li>
+                <li>Product Marketing</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
 
-  
+
 </body>
+
 </html>
-
-

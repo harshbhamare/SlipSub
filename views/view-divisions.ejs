@@ -1,58 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manage Divisions & Subjects</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1024" />
+  <title>Document</title>
+  <link rel="stylesheet" href="/stylesheets/view-divisions.css" />
 </head>
+
 <body>
-  <h2>Manage Divisions for <%= year.year %></h2>
+  <div class="header">
+    <div class="logo">SlipSub</div>
+    <div class="menu">
+      <a href="">About Us</a>
+      <div class="btn-1">
+        <a href="">Institute Login</a>
+        <img src="./imgs/login.png" alt="" />
+      </div>
+      <div class="btn-1">
+        <a href="">Faculty Login</a>
+        <img src="./imgs/login.png" alt="" />
+      </div>
+      <div class="btn-1">
+        <a href="">Student Login</a>
+        <img src="./imgs/login.png" alt="" />
+      </div>
+    </div>
+  </div>
 
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Division Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% divisions.forEach(function(division) { %>
+  <div class="salutation">
+    <span>Welcome, </span>
+    <h3>Maharashtra Institute of Technology, Chhatrapati Sambhajinagar</h3>
+    <span>Institute code : 2323</span>
+  </div>
+  <div class="View">
+    <div class="box-container">
+      <h4>Divisions For <%= year.year %></h4>
+
+      <table>
         <tr>
-          <td><a href="/years/<%= division._id %>/student-list"><%= division.divisionName %></a></td>
+          <th>Division</th>
+          <th>Action</th>
         </tr>
-      <% }); %>
-    </tbody>
-  </table>
-
-  <br><br><hr><br><br>
-
-  <h2>Subjects</h2>
-
-  <br><br>
-
-  <table border="1">
-    <thead>
+        <% divisions.forEach(function(division) { %>
         <tr>
-            <th>Subject Name</th>
-            <th>Subject Code</th>
-            <th>Faculty Assigned</th>
+          <td><%= division.divisionName %></td>
+          
+          <td>
+            <a href="/years/<%= division._id %>/student-list"><img src="./imgs/Vector.png" alt="" /> View Department</a>
+          </td>
         </tr>
-    </thead>
-    <tbody>
-        <% subjects.forEach(subject => { %>
-            <tr>
-                <td><%= subject.name %></td>
-                <td><%= subject.code %></td>
-                <td>
-                    <% if (subject.faculty.length > 0) { %>
-                        <%= subject.faculty.map(fac => fac.name).join(", ") %>
-                    <% } else { %>
-                        No Faculty Assigned
-                    <% } %>
-                </td>
-            </tr>
         <% }); %>
-    </tbody>
-</table>
+        
+      </table>
+    </div>
+
+    <div class="box-container-two ">
+      <h4>Quick Links</h4>
+
+      <div class="quick-links">  
+        <a href=""> <img src="../imgs/Vector.png" alt="">Visit Dashboard</a>
+        <a href=""> <img src="../imgs/Vector.png" alt="">Visit Dashboard</a>
+        <a href=""> <img src="../imgs/Vector.png" alt="">Visit Dashboard</a>
+        <a href=""> <img src="../imgs/Vector.png" alt="">Visit Dashboard</a>
+        <a href=""> <img src="../imgs/Vector.png" alt="">Visit Dashboard</a>
+
+    </div>
+
+
+    </div>
+  </div>
+  <div class="box-1">
+    <div class="container">
+      <table class="faculty-table">
+        <h2>Subjects</h2>
+        <thead>
+          <tr>
+            <th>Subject Code</th>
+            <th>Subject Name</th>
+            <th>Faculty</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% subjects.forEach(subject => { %>
+          <tr>
+            <td><%= subject.code %></td>
+            <td>
+              <%= subject.name %>
+            </td>
+            <td>
+              <% if (subject.faculty.length > 0) { %>
+              <%= subject.faculty.map(fac => fac.name).join(", ") %>
+              <% } else { %>
+                No Faculty Assigned
+              <% } %></td>
+          </tr>
+          <% }); %>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
 
 </body>
+
 </html>

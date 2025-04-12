@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Divisions & Subjects</title>
+</head>
+<body>
+  <h2>Manage Divisions for <%= year.year %></h2>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Division Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% divisions.forEach(function(division) { %>
+        <tr>
+          <td><a href="/years/<%= division._id %>/student-list"><%= division.divisionName %></a></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  <br><br><hr><br><br>
+
+  <h2>Subjects</h2>
+
+  <br><br>
+
+  <table border="1">
+    <thead>
+        <tr>
+            <th>Subject Name</th>
+            <th>Subject Code</th>
+            <th>Faculty Assigned</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% subjects.forEach(subject => { %>
+            <tr>
+                <td><%= subject.name %></td>
+                <td><%= subject.code %></td>
+                <td>
+                    <% if (subject.faculty.length > 0) { %>
+                        <%= subject.faculty.map(fac => fac.name).join(", ") %>
+                    <% } else { %>
+                        No Faculty Assigned
+                    <% } %>
+                </td>
+            </tr>
+        <% }); %>
+    </tbody>
+</table>
+
+</body>
+</html>

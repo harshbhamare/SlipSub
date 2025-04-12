@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Institute Dashboard</title>
+</head>
+
+<style>
+    .dept{
+        border: 1px solid black;
+        padding-bottom: 10px;
+        width: 400px;
+    }
+</style>
+
+<body>
+    <a href="/logout">Logout</a>
+    <h1>Welcome, <%= instituteModel.iname %>
+    </h1>
+
+    <div class="dept">
+        <form action="/add-department" method="post">
+            <h3>Department Forum</h3>
+            <br>
+            <input type="text" name="name" id="" placeholder="Enter Department Name" required>
+            <input type="text" name="head" id="" placeholder="Enter Department Head Name" required>
+            <input type="email" name="email" id="" placeholder="Email of HOD" required>
+            <input type="password" name="password" id="" placeholder="Enter Password" required>
+            <button type="submit">Add Department and Register HOD</button>
+        </form>
+    </div>
+
+    <section>
+        <h2>Departments</h2>
+        
+        <% if (departments && departments.length > 0) { %>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Department Name</th>
+                        <th>Department Head</th>
+                        <th>Divisions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% departments.forEach(department => { %>
+                        <tr>
+                            <td><%= department.name %></td>
+                            <td><%= department.head %></td>
+                            <td>
+                                <a href="/departments/<%= department._id %>/years">
+                                    <button>View & Manage Department</button>
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No departments available.</p>
+        <% } %>
+        
+    </section>
+
+</body>
+
+</html>

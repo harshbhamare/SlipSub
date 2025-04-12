@@ -58,8 +58,6 @@
 
 .salutation{
     margin-bottom: 40px;
-    display: flex;
-    flex-direction: column;
 }
 
 .salutation span:nth-child(1){
@@ -78,62 +76,60 @@
     font-size: 30px;
     font-weight: 600;
     margin-left: 100px;
-    margin-bottom: 10px;
 }
 
-.salutation span:nth-of-type(2), span:nth-of-type(3){
+.salutation span:nth-of-type(2){
     font-family: "Instrument Sans", sans-serif;
     display: inline-block; 
     font-size: 16px;
     font-weight: 600;
-    color: #313131;
+    color: #000000;
     margin-left: 100px;
     margin-top: 5px;
-    /* margin-bottom: 20px; */
+    margin-bottom: 20px;
 }
-
-
-.search-box {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    margin-left: 500px;
-    margin-top: 80px;
-    margin-bottom: 80px;
-}
-
-.search-box input {
-    width: 60vw;
-    padding: 15px 40px 15px 40px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-.search-box img {
-    position: absolute;
-    left: 800px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: auto;
-    height: 25px;
-    pointer-events: none;
-}
-
-.view-department-two {
-    background-color: #F6F5F7;
+.View {
+    
     display: flex;
     justify-content: center;
-    align-items: center;
+    margin: 0 auto;
     border-radius: 10px;
-    padding: 50px;
-    width: 80%;
+    
+    top: 383px;
+    left: 129px;
+    
+    height: 503px;
+    /* margin: 0 auto; Centers the container */
     text-align: center;
-    margin: 50px auto;
+}
+
+.box-container{
+    margin-right: 15px;
+    background-color: #F6F5F7;
+    padding: 50px;
+    border-radius: 10px;
+    width: 55vw;
+}
+
+.box-container-two{
+    width: 15vw;
+    background-color: #F6F5F7;
+    padding: 50px;
+    border-radius: 10px;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .box-container h4{
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 50px;
+    
+}
+
+.box-container-two h4{
     font-family: "Instrument Sans", sans-serif;
     font-size: 24px;
     font-weight: 600;
@@ -166,7 +162,7 @@ table tr:last-child td:last-child {
 
 
 th{
-    padding: 15px 35px;
+    padding: 15px 70px;
     border: 1px solid #080808;
     text-align: left;
     font-family: "Instrument Sans", sans-serif;
@@ -177,10 +173,12 @@ th{
 td {
     font-family: "Inter", sans-serif;
     font-size: 16px;
-    padding: 10px 30px;
+    padding: 10px 40px;
     border: 1px solid #ddd;
     text-align: left;
 } 
+
+
 
 td a{
     background-color: #060036;
@@ -190,7 +188,6 @@ td a{
     font-size: 12px;
     padding: 5px 10px;
     border-radius: 5px;
-    cursor: pointer;
 }
 
 td a img {
@@ -200,115 +197,62 @@ td a img {
 th {
     background-color: rgba(6, 0, 54, 0.16);
 }
-
-select {
-    padding: 8px 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background-color: #fff;
-    color: #333;
-    cursor: pointer;
-    outline: none;
-    transition: border-color 0.3s ease;
-}
-
-.button-group {
-    display: flex;
-    gap: 10px; /* space between buttons */
-}
-
-button {
-    padding: 6px 12px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.approve-btn {
-    background-color: #28a745;
-    color: white;
-}
-
-.approve-btn:hover {
-    background-color: #218838;
-}
-
-.decline-btn {
-    background-color: #dc3545;
-    color: white;
-}
-
-.decline-btn:hover {
-    background-color: #c82333;
-}
-
-
-
-.box-container-three{
+.container{
+    width: 80vw;
     background-color: #F6F5F7;
-    /* display: flex; */
-    justify-content: center;
-    align-items: center;
     border-radius: 10px;
-    padding: 50px;
-    width: 80%;
-    margin: 0 auto; /* Centers the container */
+    padding-top: 30px;
+    padding-right: 40px;
+    padding-bottom: 30px;
+    padding-left: 40px;
+    margin: 0 auto; 
     text-align: center;
 }
 
-.box-container-three h4{
+.container h2{
     font-family: "Instrument Sans", sans-serif;
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 50px;
-    
+    margin-top: 23px;
 }
 
-.box-container-three table {
-    width: 100%;
-    border-collapse: separate;
-    margin-top: 20px;
-    border-spacing: 0; 
-    border-radius: 10px; 
-    overflow: hidden; 
-}
-
-.box-container-three table tr:first-child th:first-child {
-    border-top-left-radius: 10px;
-}
-.box-container-three table tr:first-child th:last-child {
-    border-top-right-radius: 10px;
-}
-
-.box-container-three table tr:last-child td:first-child {
-    border-bottom-left-radius: 10px;
-}
-.box-container-three table tr:last-child td:last-child {
-    border-bottom-right-radius: 10px;
-}
-
-
-.box-container-three th{
-    padding: 5px 40px;
-    border: 1px solid #080808;
-    text-align: left;
-    font-family: "Instrument Sans", sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.box-container-three td {
+.container td {
     font-family: "Inter", sans-serif;
     font-size: 16px;
-    padding: 10px 10px;
+    padding: 10px 70px;
     border: 1px solid #ddd;
     text-align: left;
 } 
 
-.box-container-three th {
-    background-color: rgba(6, 0, 54, 0.16);
-    text-align: center;
+.box-1{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.quick-links{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.quick-links a{
+    margin-bottom: 20px;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quick-links a img{
+    margin-right: 5px;
+    background-color: #060036;
+    padding: 5px;
+    border-radius: 5px;
 }

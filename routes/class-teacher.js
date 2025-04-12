@@ -27,7 +27,7 @@ router.get("/dashboard", async (req, res) => {
 
         const students = await Student.find({ division: teacher.classTeacherOf });
 
-        res.render("classteacher-dashboard", { students, pendingRequests, });
+        res.render("classteacher-dashboard", { students, pendingRequests, teacher });
     } catch (error) {
         console.error("Error loading dashboard:", error);
         res.status(500).send("Internal Server Error");

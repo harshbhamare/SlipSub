@@ -18,9 +18,8 @@ router.post("/", async function (req, res) {
             return res.status(401).send("Access Denied: No Token Provided");
         }
 
-        const decoded = jwt.verify(token, "process.env.HOD");
+        const decoded = jwt.verify(token, "process.env.INSTITUTE");
         const instituteId = decoded.instituteid;
-
         const { name, head, email, password } = req.body;
 
         if (!name || !head || !email || !password) {

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h2>View Years for <%= department.name %></h2>
+
+  <table border="1">
+    <thead>
+        <th>Year Name</th>
+        <th>Manage Year</th>
+ 
+    </thead>
+    <tbody>
+        <% years.forEach(function(year) { %>
+            <tr>
+                <td><%= year.year %></td>
+                <td><a href="/years/<%=year.id%>/divisions/view">Manage</a></td>
+            </tr>
+            
+        <% }); %>
+    </tbody>
+</table>
+
+<br> <br> <br>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Faculty Name</th>
+            <th>Subjects</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% faculties.forEach(faculty => { %>
+        <tr>
+            <td><%= faculty.name %></td>
+            <td>
+                <ul>
+                    <% faculty.subjects.forEach(subject => { %>
+                        <li><%= subject.name %></li>
+                    <% }) %>
+                </ul>
+            </td>
+        </tr>
+        <% }) %>
+    </tbody>
+</table>
+
+
+  
+</body>
+</html>
+
+

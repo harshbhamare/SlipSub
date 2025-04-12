@@ -2,66 +2,111 @@
 <html lang="en">
 
 <head>
-    <title>Institute Dashboard</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1024" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/institute-dashboard.css" />
 </head>
 
-<style>
-    .dept{
-        border: 1px solid black;
-        padding-bottom: 10px;
-        width: 400px;
-    }
-</style>
-
 <body>
-    <a href="/logout">Logout</a>
-    <h1>Welcome, <%= instituteModel.iname %>
-    </h1>
 
-    <div class="dept">
-        <form action="/add-department" method="post">
-            <h3>Department Forum</h3>
-            <br>
-            <input type="text" name="name" id="" placeholder="Enter Department Name" required>
-            <input type="text" name="head" id="" placeholder="Enter Department Head Name" required>
-            <input type="email" name="email" id="" placeholder="Email of HOD" required>
-            <input type="password" name="password" id="" placeholder="Enter Password" required>
-            <button type="submit">Add Department and Register HOD</button>
-        </form>
+    <div class="header">
+        <div class="logo">SlipSub</div>
+        <div class="menu">
+            <a href="">About Us</a>
+            <div class="btn-1">
+                <a href="">Institute Login</a>
+                <img src="./imgs/login.png" alt="" />
+            </div>
+            <div class="btn-1">
+                <a href="">Faculty Login</a>
+                <img src="./imgs/login.png" alt="" />
+            </div>
+            <div class="btn-1">
+                <a href="">Student Login</a>
+                <img src="./imgs/login.png" alt="" />
+            </div>
+        </div>
     </div>
 
-    <section>
-        <h2>Departments</h2>
-        
-        <% if (departments && departments.length > 0) { %>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Department Name</th>
-                        <th>Department Head</th>
-                        <th>Divisions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% departments.forEach(department => { %>
+    <div class="salutation">
+        <span>Welcome, </span>
+        <h3> <%= instituteModel.iname %> </h3>
+        <span>Institute code : <%= instituteModel.code %></span>
+    </div>
+
+    <div class="view-department">
+        <div class="box-container">
+            <h4>View Departments</h4>
+
+            <table>
+                <tr>
+                    <th>Department Name</th>
+                    <th>Head of Department</th>
+                    <th>Action</th>
+                </tr>
+                <% if (departments && departments.length> 0) { %>
+                    <% departments.forEach(department=> { %>
                         <tr>
-                            <td><%= department.name %></td>
-                            <td><%= department.head %></td>
                             <td>
-                                <a href="/departments/<%= department._id %>/years">
-                                    <button>View & Manage Department</button>
-                                </a>
+                                <%= department.name %>
+                            </td>
+                            <td>
+                                <%= department.head %>
+                            </td>
+                            <td>
+                                <a href="/departments/<%= department._id %>/years"><img src="./imgs/Vector.png"
+                                        alt="" /> View Department</a>
                             </td>
                         </tr>
-                    <% }) %>
-                </tbody>
+                        <% }) %>
+                        <% } else { %>
+                            <p>No departments available.</p>
+                        <% } %>                             
             </table>
-        <% } else { %>
-            <p>No departments available.</p>
-        <% } %>
-        
-    </section>
+        </div>
+    </div>
 
+    <div class="dept-section">
+        <div class="box2-container">
+            <h4>Add Departments</h4>
+
+            <form action="/add-department" method="post">
+                <label for="name">Department Name : </label>
+                <input type="text" name="name" placeholder="Enter Department Name" />
+
+                <label for="head">Head of Department : </label>
+                <input type="text" name="head" placeholder="Enter Head of Department Name" />
+
+                <div class="hori-one">
+                    <div class="input-group">
+                        <label for="hod-email">HOD Email:</label>
+                        <input type="email" name="email" id="hod-email" placeholder="Enter HOD Email" />
+                    </div>
+
+                    <div class="input-group">
+                        <label for="hod-password">HOD Password:</label>
+                        <input type="password" name="password" id="hod-password" placeholder="Create HOD Password" />
+                    </div>
+                </div>
+
+                <button type="submit">Create Department</button>
+            </form>
+        </div>
+
+        <div class="box3-container">
+            <h4>Quick Links</h4>
+
+            <div class="quick-links">
+                <a href=""> <img src="./imgs/Vector.png" alt="">Visit Dashboard</a>
+                <a href=""> <img src="./imgs/Vector.png" alt="">Visit Dashboard</a>
+                <a href=""> <img src="./imgs/Vector.png" alt="">Visit Dashboard</a>
+                <a href=""> <img src="./imgs/Vector.png" alt="">Visit Dashboard</a>
+                <a href=""> <img src="./imgs/Vector.png" alt="">Visit Dashboard</a>
+
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
