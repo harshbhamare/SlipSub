@@ -468,6 +468,8 @@ form input {
     margin: 20px auto;
     max-width: 1264px;
     font-family: "Instrument Sans", sans-serif;
+    padding-right: 125px;
+
   }
   
   .logout-btn {

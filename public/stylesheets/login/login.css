@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    background-color: #060036;
+    display: flex;
+    padding: 0px 100px;
+    height: 90px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0px;
+
+}
+
+.header .logo{
+    color: white;
+    font-size: 48px;
+    font-family: "Instrument Sans", sans-serif;
+    font-weight: 600;
+}
+
+.header .menu{
+    display: flex;
+    
+}
+
+.header .menu a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-family: "Instrument Sans", sans-serif;
+    margin: 0px 40px;
+    background-color: rgba(255, 255, 255, 0.158);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.header .menu .btn-1{
+    display: flex;
+    align-items: center;
+    margin: 0px 20px;
+}
+
+.header .menu .btn-1 a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-family: "Instrument Sans", sans-serif;
+    margin: 0px 5px;
+    background-color: rgba(255, 255, 255, 0.158);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+.institute-form-parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100svh; /* use svh for full mobile screen */
+    padding: 40px 0;
+    box-sizing: border-box;
+    overflow-x: auto;
+}
+
+
+.institute-form {
+    width: 85vw;
+    max-width: 1100px; /* prevents stretching on large screens */
+    min-width: 800px; /* maintains layout on small screens */
+    display: flex;
+    background-color: #f0eff3;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.form-one-left {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-one-left h3 {
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 50px;
+    margin-top: 40px;
+    color: #0c0032;
+}
+
+.form-one-left label {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 16px;
+}
+
+.form-one-left input {
+    margin-bottom: 35px;
+    padding: 17px 30px;
+    border: none;
+    border-radius: 8px;
+    background-color: #e0e0e0;
+    outline: none;
+    font-size: 16px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.form-one-left input::placeholder {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    color: #666;
+    font-weight: 400;
+    opacity: 1;
+}
+
+.form-one-left button {
+    font-family: "Inter", sans-serif;
+    width: 200px;
+    margin: 40px auto;
+    padding: 15px 29px;
+    background-color: #0c0032;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-one-left button:hover {
+    background-color: #1a1a5e;
+}
+
+.form-one-right {
+    flex: 1;
+    background-color: #0c0032;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.form-one-right img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Avoid layout break under 800px, allow scroll */
+@media (max-width: 799px) {
+    .institute-form-parent {
+        overflow-x: scroll;
+    }
+    .institute-form {
+        min-width: 800px;
+    }
+}

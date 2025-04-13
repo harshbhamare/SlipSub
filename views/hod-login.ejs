@@ -1,16 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <meta name="viewport" content="width=1024">
+    <title>HOD Login</title>
+    <link rel="stylesheet" href="/stylesheets/login/login.css">
 </head>
 <body>
-    <h2>HOD LOGIN HERE</h2>
-    <form action="/hod-login" method="post">
-        <input type="email" name="email" placeholder="HOD email" required>
-        <input type="password" name="password" placeholder="Enter Password" required>
-        <button type="submit">Login HERE</button>
-    </form>
+    <div class="header">
+        <div class="logo"> SlipSub </div>
+        <div class="menu">
+            <a href="">About Us</a>
+            <div class="btn-1">
+                <a href="">Institute Login</a>
+                <img src="./imgs/login.png" alt="">
+            </div>
+            <div class="btn-1">
+                <a href="">Faculty Login</a>
+                <img src="./imgs/login.png" alt="">
+            </div>
+            <div class="btn-1">
+                <a href="">Student Login</a>
+                <img src="./imgs/login.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="institute-form-parent">
+        <div class="institute-form">
+            <!-- Left Section -->
+            <div class="form-one-left">
+                <h3>HOD Login Portal</h3>
+                <form action="/hod-login" method="post">
+                    <label>HOD Email</label>
+                    <input type="email" name="email" placeholder="Enter your Email">
+                    <label>HOD Password</label>
+                    <input type="password" name="password" placeholder="Enter your Password">
+                    <button>Register</button>
+                </form>
+            </div>
+
+            <!-- Right Section -->
+            <div class="form-one-right">
+                <img src="/images/login/hod.jpg" alt="HOD Banner">
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

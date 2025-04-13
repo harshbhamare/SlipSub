@@ -17,7 +17,9 @@ router.get("/dashboard", async (req, res) => {
 
         const decoded = jwt.verify(token, "process.env.FACULTY");
 
-        const teacher = await Faculty.findById(decoded.facultyid);
+        const teacher = await Faculty.findById(decoded.facultyid)
+            .populate("institute", "iname")
+            .populate("classTeacherOf", "divisionName")
 
         const pendingRequests = await Student.find({ status: "pending" });
 

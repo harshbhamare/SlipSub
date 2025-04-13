@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/", function(req, res){
         res.cookie("token", "");
-        res.redirect("/institute-login")
+        res.redirect("/")
 })
 
 module.exports = router;

@@ -1,19 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Login Form</title>
+    <meta name="viewport" content="width=1024">
+    <title>HOD Login</title>
+    <link rel="stylesheet" href="/stylesheets/login/login.css">
 </head>
 <body>
-    <form action="/student-login" method="POST">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        
-        <button type="submit">Login Here</button>
-    </form>
+    <div class="header">
+        <div class="logo"> SlipSub </div>
+        <div class="menu">
+            <a href="">About Us</a>
+            <div class="btn-1">
+                <a href="">Institute Login</a>
+                <img src="./imgs/login.png" alt="">
+            </div>
+            <div class="btn-1">
+                <a href="">Faculty Login</a>
+                <img src="./imgs/login.png" alt="">
+            </div>
+            <div class="btn-1">
+                <a href="">Student Login</a>
+                <img src="./imgs/login.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="institute-form-parent">
+        <div class="institute-form">
+            <!-- Left Section -->
+            <div class="form-one-left">
+                <h3>Student Login Portal</h3>
+                <form action="/student-login" method="post">
+                    <label>Student Email</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your Email">
+                    <label>Password</label>
+                    <input type="password" name="password" id="password" placeholder="Enter your Password">
+                    <button>click to Login</button>
+                </form>
+            </div>
+
+            <!-- Right Section -->
+            <div class="form-one-right">
+                <img src="/images/login/student.png" alt="HOD Banner">
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
